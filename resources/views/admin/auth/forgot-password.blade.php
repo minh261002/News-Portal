@@ -5,7 +5,7 @@
     <base href="{{ env('APP_URL') }}">
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Đăng Nhập</title>
+    <title>Quên Mật Khẩu</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('admin/assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -33,12 +33,19 @@
 
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h4>Đăng Nhập</h4>
+                                <h4>Quên Mật Khẩu</h4>
                             </div>
 
                             <div class="card-body">
-                                <form method="POST" action="{{ route('admin.handleLogin') }}">
+                                <form method="POST" action="{{ route('admin.password.email') }}">
                                     @csrf
+
+                                    @if (session('success'))
+                                        <div class="alert alert-success">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
+
                                     <div class="form-group">
                                         <label for="email">Email</label>
                                         <input id="email" type="email" value="{{ old('email') }}"
@@ -49,31 +56,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <div class="d-block">
-                                            <label for="password" class="control-label">Mật Khẩu</label>
-                                            <div class="float-right">
-                                                <a href="{{ route('admin.password.request') }}" class="text-small">
-                                                    Quên Mật Khẩu
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <input id="password" type="password" class="form-control" name="password">
-                                        @error('password')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" name="remember" class="custom-control-input"
-                                                tabindex="3" id="remember-me">
-                                            <label class="custom-control-label" for="remember-me">Lưu Thông Tin</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                                            Đăng Nhập
+                                            Xác Thực Email
                                         </button>
                                     </div>
                                 </form>

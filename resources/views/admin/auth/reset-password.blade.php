@@ -5,7 +5,7 @@
     <base href="{{ env('APP_URL') }}">
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Đăng Nhập</title>
+    <title>Đặt lại mật khẩu</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('admin/assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -33,47 +33,44 @@
 
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h4>Đăng Nhập</h4>
+                                <h4>Đặt Lại Mật Khẩu</h4>
                             </div>
 
                             <div class="card-body">
-                                <form method="POST" action="{{ route('admin.handleLogin') }}">
+                                <form method="POST" action="{{ route('admin.password.update', $token) }}">
                                     @csrf
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input id="email" type="email" value="{{ old('email') }}"
-                                            class="form-control" name="email">
-                                        @error('email')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
+
+                                    @if (session('success'))
+                                        <div class="alert alert-success">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
+
+                                    <div class="alert alert-info">
+                                        Xin Chào, {{ $name }} <br />
+                                        Vui lòng đặt lại mật khẩu của bạn.
                                     </div>
 
-                                    <div class="form-group">
-                                        <div class="d-block">
-                                            <label for="password" class="control-label">Mật Khẩu</label>
-                                            <div class="float-right">
-                                                <a href="{{ route('admin.password.request') }}" class="text-small">
-                                                    Quên Mật Khẩu
-                                                </a>
-                                            </div>
-                                        </div>
+                                    <div class="form-group mb-4">
+                                        <label for="password">Mật Khẩu</label>
                                         <input id="password" type="password" class="form-control" name="password">
                                         @error('password')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
 
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" name="remember" class="custom-control-input"
-                                                tabindex="3" id="remember-me">
-                                            <label class="custom-control-label" for="remember-me">Lưu Thông Tin</label>
-                                        </div>
+                                    <div class="form-group mb-4">
+                                        <label for="password_confirmation">Nhập Lại Mật Khẩu</label>
+                                        <input id="password_confirmation" type="password" class="form-control"
+                                            name="password_confirmation">
+                                        @error('password_confirmation')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                                            Đăng Nhập
+                                            Đặt Lại Mật Khẩu
                                         </button>
                                     </div>
                                 </form>
