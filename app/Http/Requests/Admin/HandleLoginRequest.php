@@ -46,12 +46,12 @@ class HandleLoginRequest extends FormRequest
      * @return array<string, string>
      */
 
-    public function messages(): array
-    {
-        return [
-            'email.required' => 'Email không được để trống.',
-            'email.email' => 'Email không đúng định dạng.',
-            'password.required' => 'Mật khẩu không được để trống.',
-        ];
-    }
+    // public function messages(): array
+    // {
+    //     return [
+    //         'email.required' => 'Email không được để trống.',
+    //         'email.email' => 'Email không đúng định dạng.',
+    //         'password.required' => 'Mật khẩu không được để trống.',
+    //     ];
+    // }
 }
