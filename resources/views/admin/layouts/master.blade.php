@@ -61,6 +61,7 @@
     <script src="{{ asset('admin/assets/modules/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
     <script src="{{ asset('admin/assets/modules/summernote/summernote-bs4.js') }}"></script>
     <script src="{{ asset('admin/assets/modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
+    <script src="{{ asset('admin/assets/modules/upload-preview/assets/js/jquery.uploadPreview.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('admin/assets/js/page/index-0.js') }}"></script>
@@ -68,6 +69,19 @@
     <!-- Template JS File -->
     <script src="{{ asset('admin/assets/js/scripts.js') }}"></script>
     <script src="{{ asset('admin/assets/js/custom.js') }}"></script>
+    @include('sweetalert::alert')
+
+    <script>
+        $(document).ready(function() {
+            $.uploadPreview({
+                input_field: "#image-upload",
+                preview_box: "#image-preview",
+                label_field: "#image-label"
+            });
+        });
+    </script>
+
+    @stack('scripts')
 </body>
 
 </html>

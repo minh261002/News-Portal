@@ -22,6 +22,7 @@ class AdminAuthenticationController extends Controller
     public function handleLogin(HandleLoginRequest $request)
     {
         $request->authenticate();
+        toast('Đăng nhập thành công', 'success');
         return redirect()->route('admin.dashboard');
     }
 
@@ -33,6 +34,7 @@ class AdminAuthenticationController extends Controller
 
         $request->session()->regenerateToken();
 
+        toast('Đăng xuất thành công', 'success');
         return redirect()->route('admin.login');
     }
 
