@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAuthenticationController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -24,4 +25,5 @@ Route::middleware(['admin'])->group(function () {
     Route::put('/profile/password', [ProfileController::class, 'changePassword'])->name('profile.password');
 
     Route::resource('languages', LanguageController::class)->except(['show']);
+    Route::resource('categories', CategoryController::class)->except(['show']);
 });

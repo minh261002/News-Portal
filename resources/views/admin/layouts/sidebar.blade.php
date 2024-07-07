@@ -27,8 +27,15 @@
                         Page</span></a></li> --}}
             <li>
                 <a class="nav-link" href="{{ route('admin.languages.index') }}">
-                    <i class="far fa-language"></i>
+                    <i class="far fa-square"></i>
                     <span>Ngôn ngữ</span>
+                </a>
+            </li>
+
+            <li>
+                <a class="nav-link" href="{{ route('admin.categories.index') }}">
+                    <i class="far fa-square"></i>
+                    <span>Danh mục</span>
                 </a>
             </li>
         </ul>
