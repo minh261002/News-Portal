@@ -59,7 +59,8 @@ class AdminAuthenticationController extends Controller
         $admin = Admin::where('remember_token', $token)->first();
         $name = $admin->name;
         if (!$admin) {
-            return redirect()->route('admin.login')->with('error', 'Token không hợp lệ');
+            toast('Token không hợp lệ', 'error');
+            return redirect()->route('admin.login');
         }
         return view('admin.auth.reset-password', compact('token', 'name'));
     }
@@ -68,11 +69,13 @@ class AdminAuthenticationController extends Controller
     {
         $admin = Admin::where('remember_token', $token)->first();
         if (!$admin) {
-            return redirect()->route('admin.login')->with('error', 'Token không hợp lệ');
+            toast('Token không hợp lệ', 'error');
+            return redirect()->route('admin.login');
         }
         $admin->password = bcrypt($request->password);
         $admin->remember_token = null;
         $admin->save();
-        return redirect()->route('admin.login')->with('success', 'Đặt lại mật khẩu thành công');
+        toast('Đổi mật khẩu thành công', 'success');
+        return redirect()->route('admin.login');
     }
 }
