@@ -12,7 +12,7 @@
                 <a href="#" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
             <li class="menu-header">Starter</li>
-
+            {{--
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Layout</span></a>
@@ -24,8 +24,13 @@
             </li>
 
             <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>Blank
-                        Page</span></a></li>
-
+                        Page</span></a></li> --}}
+            <li>
+                <a class="nav-link" href="{{ route('admin.languages.index') }}">
+                    <i class="far fa-language"></i>
+                    <span>Ngôn ngữ</span>
+                </a>
+            </li>
         </ul>
     </aside>
 </div>
