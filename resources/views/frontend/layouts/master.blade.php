@@ -5,11 +5,19 @@
     <base href="{{ env('APP_URL') }}" />
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>@yield('meta_title', 'News Portal')</title>
-    <meta name="description" content="@yield('meta_description', 'News Portal')">
-    <meta name="keywords" content="@yield('tags', 'News Portal')">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="{{ asset('frontend/css/styles.css') }}" rel="stylesheet">
+    <title>@yield('title')</title>
+
+    <meta name="description" content="@yield('meta_description')" />
+    <meta name="keywords" content="@yield('tags')" />
+    <meta name="og:title" content="@yield('meta_og_title')" />
+    <meta name="og:description" content="@yield('meta_og_description')" />
+    <meta name="og:image" content="@yield('meta_og_image')" />
+    <meta name="twitter:title" content="@yield('meta_twitter_title')" />
+    <meta name="twitter:description" content="@yield('meta_twitter_description')" />
+    <meta name="twitter:image" content="@yield('meta_twitter_image')" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="{{ asset('frontend/css/styles.css') }}" rel="stylesheet" />
 </head>
 
 <body>

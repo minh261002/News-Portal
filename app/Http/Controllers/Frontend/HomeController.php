@@ -20,6 +20,8 @@ class HomeController extends Controller
 
     public function detail(string $slug)
     {
+        $shareUrl = url()->current();
+
         $news = News::with(['author', 'tags', 'comments'])->where('slug', $slug)->activeEntries()->withLocalize()->first();
 
         $recentNews = News::with(['category', 'author'])
@@ -33,8 +35,11 @@ class HomeController extends Controller
 
         $mostCommonTags = $this->mostCommonTags();
 
+        $nextNews = News::where('id', '>', $news->id)->activeEntries()->withLocalize()->orderBy('id', 'asc')->first();
+        $previousNews = News::where('id', '<', $news->id)->activeEntries()->withLocalize()->orderBy('id', 'desc')->first();
+        $relatedNews = News::where('category_id', $news->category_id)->where('slug', '!=', $news->slug)->activeEntries()->withLocalize()->orderBy('created_at', 'desc')->take(5)->get();
         $this->countView($news);
-        return view('frontend.news-detail', compact('news', 'recentNews', 'mostCommonTags'));
+        return view('frontend.news-detail', compact('news', 'recentNews', 'mostCommonTags', 'nextNews', 'previousNews', 'relatedNews', 'shareUrl'));
     }
 
     public function countView($news)
@@ -88,8 +93,8 @@ class HomeController extends Controller
         try {
             $comment = Comment::findOrFail($id);
 
-            if($comment->children()->count() > 0){
-                foreach ($comment->children as $child){
+            if ($comment->children()->count() > 0) {
+                foreach ($comment->children as $child) {
                     $child->delete();
                 }
             }
@@ -99,7 +104,7 @@ class HomeController extends Controller
                 'status' => 'success',
                 'message' => 'Đã xóa bình luận'
             ]);
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Không thể xóa bình luận'

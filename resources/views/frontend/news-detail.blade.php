@@ -1,10 +1,14 @@
 @extends('frontend.layouts.master')
 
-@section('meta_title', $news->meta_title)
-
-@section('meta_description', $news->meta_description)
-
 @section('tags', $news->tags->pluck('name')->implode(','))
+@section('title', $news->title)
+@section('meta_description', $news->meta_description)
+@section('meta_og_title', $news->meta_title)
+@section('meta_og_description', $news->meta_description)
+@section('meta_og_image', asset($news->image))
+@section('meta_tw_title', $news->meta_title)
+@section('meta_tw_description', $news->meta_description)
+@section('meta_tw_image', asset($news->image))
 
 @section('content')
     <section class="pb-80">
@@ -25,6 +29,7 @@
                     </ul>
                     <!-- end breadcrumb -->
                 </div>
+
                 <div class="col-md-8">
                     <!-- content article detail -->
                     <!-- Article Detail -->
@@ -76,13 +81,15 @@
                                 <ul class="list-inline">
                                     <span class="share">{{ _('Chia sẻ:') }}</span>
                                     <li class="list-inline-item">
-                                        <a class="btn btn-social-o facebook" href="#">
+                                        <a class="btn btn-social-o facebook" target="_blank"
+                                            href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}">
                                             <i class="fa fa-facebook-f"></i>
-                                            <span>facebook</span>
+                                            <span>Facebook</span>
                                         </a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <a class="btn btn-social-o twitter" href="#">
+                                        <a class="btn btn-social-o twitter" target="_blank"
+                                            href="https://twitter.com/intent/tweet?url={{ url()->current() }}">
                                             <i class="fa fa-twitter"></i>
                                             <span>twitter</span>
                                         </a>
@@ -248,11 +255,7 @@
 
                                                         <div
                                                             style="display: flex; justify-content: space-between; align-items: center;">
-                                                            <a href="#" class="comment-reply-link"
-                                                                data-toggle="modal"
-                                                                data-target="#exampleModal{{ $comment->id }}">
-                                                                <i class="fa fa-reply" style="font-size: 24px"></i>
-                                                            </a>
+                                                            <div></div>
                                                             {{-- <span>
                                                                 <i class="fa fa-trash"></i>
                                                             </span> --}}
@@ -344,18 +347,27 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="single_navigation-prev">
-                                <a href="#">
-                                    <span>previous post</span>
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem, similique.
-                                </a>
+                                @if ($previousNews !== null)
+                                    <a href="{{ route('news.detail', $previousNews->slug) }}">
+                                        <span>
+                                            {{ _('Bài Trước') }}
+                                        </span>
+                                        {{ truncate($previousNews->title, 50) }}
+                                    </a>
+                                @endif
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="single_navigation-next text-left text-md-right">
-                                <a href="#">
-                                    <span>next post</span>
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perferendis, nesciunt.
-                                </a>
+                                @if ($nextNews !== null)
+                                    <a href="{{ route('news.detail', $nextNews->slug) }}">
+                                        <span>
+                                            {{ _('Bài Tiếp') }}
+                                        </span>
+                                        {{ truncate($nextNews->title, 50) }}
+                                    </a>
+                                @endif
+
                             </div>
                         </div>
                     </div>
@@ -366,7 +378,6 @@
                         </div>
                     </div>
 
-
                     <div class="clearfix"></div>
 
                     <div class="related-article">
@@ -375,41 +386,44 @@
                         </h4>
 
                         <div class="article__entry-carousel-three">
-                            <div class="item">
-                                <!-- Post Article -->
-                                <div class="article__entry">
-                                    <div class="article__image">
-                                        <a href="#">
-                                            <img src="images/newsimage5.png" alt="" class="img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="article__content">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <span class="text-primary">
-                                                    by david hall
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <span>
-                                                    descember 09, 2016
-                                                </span>
-                                            </li>
-
-                                        </ul>
-                                        <h5>
+                            @foreach ($relatedNews as $news)
+                                <div class="item">
+                                    <!-- Post Article -->
+                                    <div class="article__entry">
+                                        <div class="article__image">
                                             <a href="#">
-                                                Maecenas accumsan tortor ut velit pharetra mollis.
+                                                <img src="{{ asset($news->image) }}" alt="" class="img-fluid">
                                             </a>
-                                        </h5>
+                                        </div>
+                                        <div class="article__content">
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <span class="text-primary">
+                                                        {{ $news->author->name }}
+                                                    </span>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <span>
+                                                        {{ $news->created_at->format('d M, Y') }}
+                                                    </span>
+                                                </li>
 
+                                            </ul>
+                                            <h5>
+                                                <a href="#">
+                                                    {{ $news->title }}
+                                                </a>
+                                            </h5>
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
 
                 </div>
+
                 <div class="col-md-4">
                     <div class="sticky-top">
                         <aside class="wrapper__list__article ">
@@ -486,7 +500,7 @@
                                             </div>
                                             <div class="article__content">
                                                 <div class="article__category">
-                                                    <a href="#">
+                                                    <a href="#" class="text-white">
                                                         {{ $item->category->name }}
                                                     </a>
                                                 </div>
@@ -504,7 +518,7 @@
 
                                                 </ul>
                                                 <h5>
-                                                    <a href="#">
+                                                    <a href="{{ route('news.detail', $item->slug) }}">
                                                         {{ $item->title }}
                                                     </a>
                                                 </h5>
@@ -597,31 +611,38 @@
                         </aside>
 
                         <aside class="wrapper__list__article">
-                            <h4 class="border_section">newsletter</h4>
+                            <h4 class="border_section">
+                                {{ _('Đăng ký nhận tin') }}
+                            </h4>
                             <!-- Form Subscribe -->
                             <div class="widget__form-subscribe bg__card-shadow">
                                 <h6>
-                                    The most important world news and events of the day.
+                                    {{ _('Đăng ký nhận tin') }}
                                 </h6>
-                                <p><small>Get magzrenvi daily newsletter on your inbox.</small></p>
+                                <p><small>
+                                        {{ _('Nhận thông báo về các bài viết mới nhất của chúng tôi') }}
+                                    </small></p>
                                 <div class="input-group ">
-                                    <input type="text" class="form-control" placeholder="Your email address">
+                                    <input type="text" class="form-control"
+                                        placeholder="{{ _('Địa chỉ email của bạn') }}">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">sign up</button>
+                                        <button class="btn btn-primary" type="button">
+                                            {{ _('Đăng ký') }}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </aside>
 
                         <aside class="wrapper__list__article">
-                            <h4 class="border_section">Advertise</h4>
+                            <h4 class="border_section">Quảng Cáo</h4>
                             <a href="#">
                                 <figure>
-                                    <img src="images/news6.jpg" alt="" class="img-fluid">
+                                    <img src="{{ asset('frontend/images/news6.jpg') }}" alt=""
+                                        class="img-fluid">
                                 </figure>
                             </a>
                         </aside>
-
                     </div>
                 </div>
             </div>
