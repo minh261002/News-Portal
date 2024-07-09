@@ -4,8 +4,9 @@
 <head>
     <base href="{{ env('APP_URL') }}" />
     <meta charset="utf-8">
-    <title>Top News HTML template </title>
-    <meta name="description" content="">
+    <title>@yield('meta_title', 'News Portal')</title>
+    <meta name="description" content="@yield('meta_description', 'News Portal')">
+    <meta name="keywords" content="@yield('tags', 'News Portal')">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{{ asset('frontend/css/styles.css') }}" rel="stylesheet">
 </head>

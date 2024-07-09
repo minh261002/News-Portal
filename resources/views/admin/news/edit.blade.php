@@ -90,7 +90,7 @@
 
                     <div class="form-group">
                         <label for="">Mô tả SEO</label>
-                        <textarea name="meta_description" class="form-control" value="{{ $news->meta_description }}"></textarea>
+                        <textarea name="meta_description" class="form-control">{{ $news->meta_description }}</textarea>
                         @error('meta_description')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror

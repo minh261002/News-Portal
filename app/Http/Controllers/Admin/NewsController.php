@@ -72,7 +72,6 @@ class NewsController extends Controller
         $news->is_breaking_news = $request->is_breaking_news ? 1 : 0;
         $news->show_at_slider = $request->show_at_slider ? 1 : 0;
         $news->show_at_popular = $request->show_at_popular ? 1 : 0;
-        $news->is_approved = $request->is_approved ? 1 : 0;
         $news->status = $request->status ? 1 : 0;
         $news->save();
 
@@ -155,7 +154,6 @@ class NewsController extends Controller
         $news->is_breaking_news = $request->is_breaking_news ? 1 : 0;
         $news->show_at_slider = $request->show_at_slider ? 1 : 0;
         $news->show_at_popular = $request->show_at_popular ? 1 : 0;
-        $news->is_approved = $request->is_approved ? 1 : 0;
         $news->status = $request->status ? 1 : 0;
 
         $news->save();

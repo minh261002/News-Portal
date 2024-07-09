@@ -31,3 +31,13 @@ function truncate(string $text, int $limit = 100)
 {
     return \Str::limit($text, $limit, '...');
 }
+
+function convertToKFormat(int $num){
+    if($num < 1000 ){
+        return $num;
+    }else if($num < 1000000){
+        return round($num/1000, 1) . 'K';
+    }else{
+        return round($num/1000000, 1) . 'M';
+    }
+}

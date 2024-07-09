@@ -20,3 +20,5 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 Route::get('language', LanguageController::class)->name('language');
+
+Route::get('blog/{slug}', [HomeController::class, 'detail'])->name('news.detail');
