@@ -20,5 +20,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 Route::get('language', LanguageController::class)->name('language');
-
 Route::get('blog/{slug}', [HomeController::class, 'detail'])->name('news.detail');
+Route::post('comment', [HomeController::class, 'handleComment'])->name('comment');
+Route::post('getComment', [HomeController::class, 'getComments'])->name('getComments');
+Route::delete('comment/{id}', [HomeController::class, 'deleteComment'])->name('deleteComment');

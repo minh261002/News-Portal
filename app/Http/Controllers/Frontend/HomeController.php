@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use App\Models\News;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class HomeController extends Controller
 
     public function detail(string $slug)
     {
-        $news = News::with(['author', 'tags'])->where('slug', $slug)->activeEntries()->withLocalize()->first();
+        $news = News::with(['author', 'tags', 'comments'])->where('slug', $slug)->activeEntries()->withLocalize()->first();
 
         $recentNews = News::with(['category', 'author'])
             ->where('category_id', $news->category_id)
@@ -63,5 +64,46 @@ class HomeController extends Controller
             ->orderByDesc('count')
             ->take(15)
             ->get();
+    }
+
+    public function handleComment(Request $request)
+    {
+        $request->validate([
+            'comment' => 'required|string',
+        ]);
+
+        $comment = new Comment();
+        $comment->news_id = $request->news_id;
+        $comment->user_id = auth()->id();
+        $comment->comment = $request->comment;
+        $comment->parent_id = $request->parent_id;
+        $comment->save();
+
+        toast('Đã thêm bình luận thành công', 'success');
+        return redirect()->back();
+    }
+
+    public function deleteComment(Request $request, $id)
+    {
+        try {
+            $comment = Comment::findOrFail($id);
+
+            if($comment->children()->count() > 0){
+                foreach ($comment->children as $child){
+                    $child->delete();
+                }
+            }
+            $comment->delete();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Đã xóa bình luận'
+            ]);
+        }catch (\Exception $e){
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Không thể xóa bình luận'
+            ]);
+        }
     }
 }

@@ -107,31 +107,17 @@
                                 <i class="fa fa-tags">
                                 </i>
                             </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    #property
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    #sea
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    #programming
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    #sea
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    #property
-                                </a>
-                            </li>
+                            @forelse ($news->tags as $tag)
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        #{{ $tag->name }}
+                                    </a>
+                                </li>
+                            @empty
+                                <div class="alert alert-warning">
+                                    {{ _('Không có thẻ nào') }}
+                                </div>
+                            @endforelse
                         </ul>
                     </div>
                     <!-- end tags-->
@@ -141,11 +127,12 @@
                     <div class="wrap__profile">
                         <div class="wrap__profile-author">
                             <figure>
-                                <img src="images/news1.jpg" alt="" class="img-fluid rounded-circle">
+                                <img src="{{ asset($news->author->image) }}"
+                                    style="width:200px !important;height:200px !important;border-radius:50%;object-fit:cover">
                             </figure>
                             <div class="wrap__profile-author-detail">
-                                <div class="wrap__profile-author-detail-name">author</div>
-                                <h4>jhon doe</h4>
+                                <div class="wrap__profile-author-detail-name">{{ _('Tác giả') }}</div>
+                                <h4>{{ $news->author->name }}</h4>
                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis laboriosam ad
                                     beatae itaque ea non
                                     placeat officia ipsum praesentium! Ullam?</p>
@@ -183,176 +170,176 @@
 
                     <!-- Comment  -->
                     <div id="comments" class="comments-area">
-                        <h3 class="comments-title">2 Comments:</h3>
+                        <h3 class="comments-title">
+                            {{ $news->comments()->whereNull('parent_id')->count() }} {{ _('Bình Luận') }}
+                        </h3>
 
                         <ol class="comment-list">
-                            <li class="comment">
-                                <aside class="comment-body">
-                                    <div class="comment-meta">
-                                        <div class="comment-author vcard">
-                                            <img src="images/news2.jpg" class="avatar" alt="image">
-                                            <b class="fn">Sinmun</b>
-                                            <span class="says">says:</span>
+                            @foreach ($news->comments()->whereNull('parent_id')->get() as $comment)
+                                <li class="comment">
+                                    <aside class="comment-body">
+                                        <div class="comment-meta">
+                                            <div class="comment-author vcard">
+                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWwfGUCDwrZZK12xVpCOqngxSpn0BDpq6ewQ&s"
+                                                    class="avatar" alt="image">
+                                                <b class="fn">{{ $comment->user->name }}</b>
+                                                <span class="says">says:</span>
+                                            </div>
+
+                                            <div class="comment-metadata">
+                                                <a href="#">
+                                                    {{-- <span>April 24, 2019 at 10:59 am</span> --}}
+                                                    <span>{{ $comment->created_at->format('d M, Y') }}</span>
+                                                </a>
+                                            </div>
                                         </div>
 
-                                        <div class="comment-metadata">
-                                            <a href="#">
-                                                <span>April 24, 2019 at 10:59 am</span>
+                                        <div class="comment-content">
+                                            <p>{{ $comment->comment }}
+                                            </p>
+                                        </div>
+
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <a href="#" class="comment-reply-link" data-toggle="modal"
+                                                data-target="#exampleModal{{ $comment->id }}">
+                                                <i class="fa fa-reply" style="font-size: 24px"></i>
                                             </a>
-                                        </div>
-                                    </div>
+                                            {{-- <span>
+                                                <i class="fa fa-trash"></i>
+                                            </span> --}}
 
-                                    <div class="comment-content">
-                                        <p>Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s,
-                                            when an unknown
-                                            printer took a galley of type and scrambled it to make a type specimen book.
-                                        </p>
-                                    </div>
-
-                                    <div class="reply">
-                                        <a href="#" class="comment-reply-link" data-toggle="modal"
-                                            data-target="#exampleModal">Reply</a>
-                                        <span>
-                                            <i class="fa fa-trash"></i>
-                                        </span>
-                                    </div>
-                                </aside>
-
-                                <ol class="children">
-                                    <li class="comment">
-                                        <aside class="comment-body">
-                                            <div class="comment-meta">
-                                                <div class="comment-author vcard">
-                                                    <img src="images/news3.jpg" class="avatar" alt="image">
-                                                    <b class="fn">Sinmun</b>
-                                                    <span class="says">says:</span>
-                                                </div>
-
-                                                <div class="comment-metadata">
-                                                    <a href="#">
-                                                        <span>April 24, 2019 at 10:59 am</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <div class="comment-content">
-                                                <p>Lorem Ipsum has been the industry’s standard dummy text ever since
-                                                    the 1500s, when an
-                                                    unknown printer took a galley of type and scrambled it to make a
-                                                    type specimen book.</p>
-                                            </div>
-
-                                            <div class="reply">
-                                                <a href="#" class="comment-reply-link" data-toggle="modal"
-                                                    data-target="#exampleModal">Reply</a>
+                                            @if (auth()->check() && auth()->user()->id === $comment->user_id)
                                                 <span>
-                                                    <i class="fa fa-trash"></i>
+                                                    <a href="{{ route('deleteComment', $comment->id) }}"
+                                                        class="delete-item text-danger">
+                                                        <i class="fa fa-trash" style="font-size: 24px"></i>
+                                                    </a>
                                                 </span>
+                                            @endif
+                                        </div>
+                                    </aside>
+
+
+                                    @if ($comment->children->count() > 0)
+                                        @foreach ($comment->children as $reply)
+                                            <ol class="children">
+                                                <li class="comment">
+                                                    <aside class="comment-body">
+                                                        <div class="comment-meta">
+                                                            <div class="comment-author vcard">
+                                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWwfGUCDwrZZK12xVpCOqngxSpn0BDpq6ewQ&s"
+                                                                    class="avatar" alt="image">
+                                                                <b class="fn">{{ $reply->user->name }}</b>
+                                                                <span class="says">says:</span>
+                                                            </div>
+
+                                                            <div class="comment-metadata">
+                                                                <a href="#">
+                                                                    {{-- <span>April 24, 2019 at 10:59 am</span> --}}
+                                                                    <span>{{ $reply->created_at->format('d M, Y') }}</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="comment-content">
+                                                            <p>{{ $reply->comment }}
+                                                            </p>
+                                                        </div>
+
+                                                        <div
+                                                            style="display: flex; justify-content: space-between; align-items: center;">
+                                                            <a href="#" class="comment-reply-link"
+                                                                data-toggle="modal"
+                                                                data-target="#exampleModal{{ $comment->id }}">
+                                                                <i class="fa fa-reply" style="font-size: 24px"></i>
+                                                            </a>
+                                                            {{-- <span>
+                                                                <i class="fa fa-trash"></i>
+                                                            </span> --}}
+
+                                                            @if (auth()->check() && auth()->user()->id === $reply->user_id)
+                                                                <span>
+                                                                    <a href="{{ route('deleteComment', $reply->id) }}"
+                                                                        class="delete-item text-danger">
+                                                                        <i class="fa fa-trash"
+                                                                            style="font-size: 24px"></i>
+                                                                    </a>
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                    </aside>
+                                                </li>
+                                            </ol>
+                                        @endforeach
+                                    @endif
+                                </li>
+
+
+                                <div class="comment_modal">
+                                    <div class="modal fade" id="exampleModal{{ $comment->id }}" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">
+                                                        {{ _('Trả lời') }} {{ $comment->user->name }}
+                                                    </h5>
+
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{{ route('comment') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="parent_id"
+                                                            value="{{ $comment->id }}">
+                                                        <input type="hidden" name="news_id"
+                                                            value="{{ $news->id }}">
+
+                                                        <label for="comment">Nội dung</label>
+                                                        <textarea cols="30" rows="7" placeholder="Nội dung" name="comment"></textarea>
+                                                        <button type="submit">Gửi Bình Luận</button>
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </aside>
-                                    </li>
-                                </ol>
-                            </li>
-
-                            <li class="comment">
-                                <aside class="comment-body">
-                                    <div class="comment-meta">
-                                        <div class="comment-author vcard">
-                                            <img src="images/news4.jpg" class="avatar" alt="image">
-                                            <b class="fn">Sinmun</b>
-                                            <span class="says">says:</span>
                                         </div>
-
-                                        <div class="comment-metadata">
-                                            <a href="#">
-                                                <span>April 24, 2019 at 10:59 am</span>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="comment-content">
-                                        <p>Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s,
-                                            when an unknown
-                                            printer took a galley of type and scrambled it to make a type specimen book.
-                                        </p>
-                                    </div>
-
-                                    <div class="reply">
-                                        <a href="#" class="comment-reply-link" data-toggle="modal"
-                                            data-target="#exampleModal">Reply</a>
-                                        <span>
-                                            <i class="fa fa-trash"></i>
-                                        </span>
-                                    </div>
-                                </aside>
-                            </li>
-                        </ol>
-
-                        <div class="comment-respond">
-                            <h3 class="comment-reply-title">Leave a Reply</h3>
-
-                            <form class="comment-form">
-                                <p class="comment-notes">
-                                    <span id="email-notes">Your email address will not be published.</span>
-                                    Required fields are marked
-                                    <span class="required">*</span>
-                                </p>
-                                <p class="comment-form-comment">
-                                    <label for="comment">Comment</label>
-                                    <textarea name="comment" id="comment" cols="45" rows="5" maxlength="65525" required="required"></textarea>
-                                </p>
-                                <p class="comment-form-author">
-                                    <label>Name <span class="required">*</span></label>
-                                    <input type="text" id="author" name="name" required="required">
-                                </p>
-                                <p class="comment-form-email">
-                                    <label for="email">Email <span class="required">*</span></label>
-                                    <input type="email" id="email" name="email" required="required">
-                                </p>
-                                <p class="comment-form-url">
-                                    <label for="url">Website</label>
-                                    <input type="url" id="url" name="url">
-                                </p>
-                                <p class="comment-form-cookies-consent">
-                                    <input type="checkbox" value="yes" name="wp-comment-cookies-consent"
-                                        id="wp-comment-cookies-consent">
-                                    <label for="wp-comment-cookies-consent">Save my name, email, and website in this
-                                        browser for the next
-                                        span I comment.</label>
-                                </p>
-                                <p class="form-submit mb-0">
-                                    <input type="submit" name="submit" id="submit" class="submit"
-                                        value="Post Comment">
-                                </p>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- Modal -->
-                    <div class="comment_modal">
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Write Your Comment</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="#">
-                                            <textarea cols="30" rows="7" placeholder="Type. . ."></textarea>
-                                            <button type="submit">submit</button>
-                                        </form>
                                     </div>
                                 </div>
+                            @endforeach
+                        </ol>
+                        @if (auth()->check())
+                            <div class="comment-respond">
+                                <h3 class="comment-reply-title">
+                                    {{ _('Bình Luận') }}
+                                </h3>
+
+                                <form class="comment-form" method="POST" action="{{ route('comment') }}"
+                                    id="comment-form">
+                                    @csrf
+                                    <input type="hidden" name="news_id" value="{{ $news->id }}">
+                                    <p class="comment-form-comment">
+                                        <label for="comment">Nội dung</label>
+                                        <textarea name="comment" id="comment" cols="45" rows="5" maxlength="65525"></textarea>
+                                        @error('comment')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </p>
+
+                                    <p class="form-submit mb-0">
+                                        <input type="submit" id="submit" class="submit" value="Gửi Bình Luận">
+                                    </p>
+                                </form>
                             </div>
-                        </div>
+                        @else
+                            <div class="comment-respond">
+                                <h3 class="comment-reply-title mb-3">
+                                    {{ _('Bình Luận') }}
+                                </h3>
+                                <a href="{{ route('login') }}">{{ _('Đăng nhập để bình luận') }}</a>
+                        @endif
                     </div>
-
-                    <!-- end comment -->
-
-
 
                     <div class="row">
                         <div class="col-md-6">
@@ -375,7 +362,7 @@
 
                     <div class="small_add_banner mb-5 pb-4">
                         <div class="small_add_banner_img">
-                            <img src="images/placeholder_large.jpg" alt="adds">
+                            <img src="{{ asset('frontend/images/placeholder_large.jpg') }}" alt="adds">
                         </div>
                     </div>
 
@@ -384,7 +371,7 @@
 
                     <div class="related-article">
                         <h4>
-                            you may also like
+                            {{ _('Bạn có thể thích') }}
                         </h4>
 
                         <div class="article__entry-carousel-three">
@@ -394,130 +381,6 @@
                                     <div class="article__image">
                                         <a href="#">
                                             <img src="images/newsimage5.png" alt="" class="img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="article__content">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <span class="text-primary">
-                                                    by david hall
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <span>
-                                                    descember 09, 2016
-                                                </span>
-                                            </li>
-
-                                        </ul>
-                                        <h5>
-                                            <a href="#">
-                                                Maecenas accumsan tortor ut velit pharetra mollis.
-                                            </a>
-                                        </h5>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <!-- Post Article -->
-                                <div class="article__entry">
-                                    <div class="article__image">
-                                        <a href="#">
-                                            <img src="images/newsimage6.png" alt="" class="img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="article__content">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <span class="text-primary">
-                                                    by david hall
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <span>
-                                                    descember 09, 2016
-                                                </span>
-                                            </li>
-
-                                        </ul>
-                                        <h5>
-                                            <a href="#">
-                                                Maecenas accumsan tortor ut velit pharetra mollis.
-                                            </a>
-                                        </h5>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <!-- Post Article -->
-                                <div class="article__entry">
-                                    <div class="article__image">
-                                        <a href="#">
-                                            <img src="images/newsimage7.png" alt="" class="img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="article__content">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <span class="text-primary">
-                                                    by david hall
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <span>
-                                                    descember 09, 2016
-                                                </span>
-                                            </li>
-
-                                        </ul>
-                                        <h5>
-                                            <a href="#">
-                                                Maecenas accumsan tortor ut velit pharetra mollis.
-                                            </a>
-                                        </h5>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <!-- Post Article -->
-                                <div class="article__entry">
-                                    <div class="article__image">
-                                        <a href="#">
-                                            <img src="images/newsimage8.png" alt="" class="img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="article__content">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <span class="text-primary">
-                                                    by david hall
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <span>
-                                                    descember 09, 2016
-                                                </span>
-                                            </li>
-
-                                        </ul>
-                                        <h5>
-                                            <a href="#">
-                                                Maecenas accumsan tortor ut velit pharetra mollis.
-                                            </a>
-                                        </h5>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <!-- Post Article -->
-                                <div class="article__entry">
-                                    <div class="article__image">
-                                        <a href="#">
-                                            <img src="images/newsimage9.png" alt="" class="img-fluid">
                                         </a>
                                     </div>
                                     <div class="article__content">
@@ -665,7 +528,9 @@
 
                         <!-- social media -->
                         <aside class="wrapper__list__article">
-                            <h4 class="border_section">stay conected</h4>
+                            <h4 class="border_section">
+                                {{ _('Kết nối với chúng tôi') }}
+                            </h4>
                             <!-- widget Social media -->
                             <div class="wrap__social__media">
                                 <a href="#" target="_blank">
