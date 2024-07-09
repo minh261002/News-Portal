@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminAuthenticationController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LanguageController;
+use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,4 +27,9 @@ Route::middleware(['admin'])->group(function () {
 
     Route::resource('languages', LanguageController::class)->except(['show']);
     Route::resource('categories', CategoryController::class)->except(['show']);
+    Route::resource('new', NewsController::class);
+
+    Route::get('fetch-news-category', [NewsController::class, 'fetchNewsCategory'])->name('fetch-news-category');
+    Route::get('/news/toggle-status', [NewsController::class, 'toggleNewsStatus'])->name('toggle-news-status');
+    Route::get('/news-copy/{id}', [NewsController::class, 'newsCopy'])->name('news-copy');
 });
