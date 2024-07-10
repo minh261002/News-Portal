@@ -41,3 +41,11 @@ function convertToKFormat(int $num){
         return round($num/1000000, 1) . 'M';
     }
 }
+
+function setSidebarActive(array $routes){
+    foreach($routes as $route){
+        if(request()->routeIs($route)){
+            return 'active';
+        }
+    }
+}
