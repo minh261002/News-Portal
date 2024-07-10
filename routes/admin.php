@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminAuthenticationController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\HomeSectionSettingController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -32,4 +33,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('fetch-news-category', [NewsController::class, 'fetchNewsCategory'])->name('fetch-news-category');
     Route::get('/news/toggle-status', [NewsController::class, 'toggleNewsStatus'])->name('toggle-news-status');
     Route::get('/news-copy/{id}', [NewsController::class, 'newsCopy'])->name('news-copy');
+
+    Route::get('/home-section-setting', [HomeSectionSettingController::class, 'index'])->name('home-section-setting');
+    Route::put('/home-section-setting', [HomeSectionSettingController::class, 'update'])->name('home-section-setting.update');
 });

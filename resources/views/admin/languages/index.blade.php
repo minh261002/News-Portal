@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="card-body">
-                    <table id="table" class="table table-striped">
+                    <table class="table table-striped" id="table">
                         <thead>
                             <tr>
                                 <th>{{ __('STT') }}</th>
@@ -66,3 +66,7 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script></script>
+@endpush

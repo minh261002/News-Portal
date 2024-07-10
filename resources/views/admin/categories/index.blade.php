@@ -98,3 +98,17 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            @foreach ($languages as $language)
+                $('#table-{{ $language->lang }}').DataTable({
+                    "language": {
+                        "url": "/data.json"
+                    }
+                });
+            @endforeach
+        });
+    </script>
+@endpush

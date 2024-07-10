@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use App\Models\HomeSectionSetting;
 use App\Models\News;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -35,7 +36,45 @@ class HomeController extends Controller
             ->orderBy('views', 'desc')
             ->take(4)->get();
 
-        return view('frontend.home', compact('breakingNews', 'heroSlider', 'recentNews', 'popularNews'));
+        $homeSectionSetting = HomeSectionSetting::where('language', getLanguage())->first();
+        $homeSection1 = News::where('category_id', $homeSectionSetting->category_section_1)
+            ->activeEntries()
+            ->withLocalize()
+            ->orderBy('created_at', 'desc')
+            ->take(6)
+            ->get();
+        $homeSection2 = News::where('category_id', $homeSectionSetting->category_section_2)
+            ->activeEntries()
+            ->withLocalize()
+            ->orderBy('created_at', 'desc')
+            ->take(6)
+            ->get();
+        $homeSection3 = News::where('category_id', $homeSectionSetting->category_section_3)
+            ->activeEntries()
+            ->withLocalize()
+            ->orderBy('created_at', 'desc')
+            ->take(6)
+            ->get();
+        $homeSection4 = News::where('category_id', $homeSectionSetting->category_section_4)
+            ->activeEntries()
+            ->withLocalize()
+            ->orderBy('created_at', 'desc')
+            ->take(6)
+            ->get();
+
+        return view(
+            'frontend.home',
+            compact(
+                'breakingNews',
+                'heroSlider',
+                'recentNews',
+                'popularNews',
+                'homeSection1',
+                'homeSection2',
+                'homeSection3',
+                'homeSection4'
+            )
+        );
     }
 
     public function detail(string $slug)

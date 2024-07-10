@@ -27,6 +27,12 @@
                 </ul>
             </li>
             <li>
+                <a class="nav-link" href="{{ route('admin.home-section-setting') }}">
+                    <i class="far fa-square"></i>
+                    <span>Trang Chủ</span>
+                </a>
+            </li>
+            <li>
                 <a class="nav-link" href="{{ route('admin.languages.index') }}">
                     <i class="far fa-square"></i>
                     <span>Ngôn ngữ</span>

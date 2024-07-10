@@ -126,6 +126,14 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            @foreach ($languages as $language)
+                $('#table-{{ $language->lang }}').DataTable({
+                    "language": {
+                        "url": "/data.json"
+                    }
+                });
+            @endforeach
+
             $('.toggle-status').on('click', function() {
                 let id = $(this).data('id');
                 let name = $(this).data('name');

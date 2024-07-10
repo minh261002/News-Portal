@@ -4175,3 +4175,7 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
 }
 
 /*# sourceMappingURL=style.css.map */
+
+.select2 {
+    width: 100% !important;
+}
