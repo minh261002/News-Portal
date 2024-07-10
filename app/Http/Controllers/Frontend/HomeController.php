@@ -69,6 +69,13 @@ class HomeController extends Controller
             ->take(6)
             ->get();
 
+        $tags = Tag::select('name', \DB::raw('COUNT(*) as count'))
+            ->where('language', getLanguage())
+            ->groupBy('name')
+            ->orderByDesc('count')
+            ->take(10)
+            ->get();
+
         return view(
             'frontend.home',
             compact(
@@ -80,7 +87,8 @@ class HomeController extends Controller
                 'homeSection2',
                 'homeSection3',
                 'homeSection4',
-                'homeSection5'
+                'homeSection5',
+                'tags'
             )
         );
     }
@@ -134,7 +142,7 @@ class HomeController extends Controller
             ->where('language', getLanguage())
             ->groupBy('name')
             ->orderByDesc('count')
-            ->take(15)
+            ->take(10)
             ->get();
     }
 

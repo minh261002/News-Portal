@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="large_add_banner_img">
-                        <img src="images/placeholder_large.jpg" alt="adds">
+                        <img src="{{ asset('frontend/images/placeholder_large.jpg') }}" alt="adds">
                     </div>
                 </div>
             </div>

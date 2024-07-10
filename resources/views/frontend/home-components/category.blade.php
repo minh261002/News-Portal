@@ -306,7 +306,7 @@
                             {{ $homeSection3->first()->category->name ?? 'Bài viết' }}
                         </h4>
                         <div class="row">
-                            @foreach ($homeSection3 as $news)
+                            @forelse ($homeSection3 as $news)
                                 <div class="col-md-6">
                                     <div class="mb-4">
                                         <!-- Post Article -->
@@ -341,7 +341,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            @empty
+                                <div class="alert alert-warning">
+                                    {{ _('Không có bài viết nào') }}
+                                </div>
+                            @endforelse
 
                         </div>
                     </aside>
@@ -421,7 +425,7 @@
                                 {{ $homeSection5->first()->category->name ?? 'Bài viết' }}
                             </h4>
                             <div class="wrapper__list__article-small">
-                                @foreach ($homeSection5 as $news)
+                                @forelse ($homeSection5 as $news)
                                     <!-- Post Article -->
                                     @if ($loop->first)
                                         <div class="article__entry">
@@ -502,12 +506,18 @@
                                             </div>
                                         </div>
                                     @endif
-                                @endforeach
+                                @empty
+                                    <div class="alert alert-warning">
+                                        {{ _('Không có bài viết nào') }}
+                                    </div>
+                                @endforelse
                             </div>
                         </aside>
 
                         <aside class="wrapper__list__article">
-                            <h4 class="border_section">stay conected</h4>
+                            <h4 class="border_section">
+                                {{ _('Kết nối với chúng tôi') }}
+                            </h4>
                             <!-- widget Social media -->
                             <div class="wrap__social__media">
                                 <a href="#" target="_blank">
@@ -516,36 +526,24 @@
                                             <i class="fa fa-facebook"></i>
                                         </span>
                                         <span class="social__media__widget-counter">
-                                            19,243 fans
+                                            Owen Bookstore
                                         </span>
                                         <span class="social__media__widget-name">
-                                            like
+                                            {{ _('Theo dõi') }}
                                         </span>
                                     </div>
                                 </a>
-                                <a href="#" target="_blank">
-                                    <div class="social__media__widget twitter">
-                                        <span class="social__media__widget-icon">
-                                            <i class="fa fa-twitter"></i>
-                                        </span>
-                                        <span class="social__media__widget-counter">
-                                            2.076 followers
-                                        </span>
-                                        <span class="social__media__widget-name">
-                                            follow
-                                        </span>
-                                    </div>
-                                </a>
+
                                 <a href="#" target="_blank">
                                     <div class="social__media__widget youtube">
                                         <span class="social__media__widget-icon">
                                             <i class="fa fa-youtube"></i>
                                         </span>
                                         <span class="social__media__widget-counter">
-                                            15,200 followers
+                                            Owen Bookstore
                                         </span>
                                         <span class="social__media__widget-name">
-                                            subscribe
+                                            {{ _('Theo dõi') }}
                                         </span>
                                     </div>
                                 </a>
@@ -557,108 +555,48 @@
                             <h4 class="border_section">tags</h4>
                             <div class="blog-tags p-0">
                                 <ul class="list-inline">
-
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #property
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #sea
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #programming
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #sea
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #property
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #life style
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #technology
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #framework
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #sport
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #game
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #wfh
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #sport
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #game
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #wfh
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #framework
-                                        </a>
-                                    </li>
-
+                                    @foreach ($tags as $tag)
+                                        <li class="list-inline-item">
+                                            <a href="#">
+                                                #{{ $tag->name }}
+                                            </a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </aside>
 
                         <aside class="wrapper__list__article">
-                            <h4 class="border_section">Advertise</h4>
+                            <h4 class="border_section">
+                                {{ _('Quảng Cáo') }}
+                            </h4>
                             <a href="#">
                                 <figure>
-                                    <img src="images/newsimage3.png" alt="" class="img-fluid">
+                                    <img src="{{ asset('frontend/images/newsimage3.png') }}" alt=""
+                                        class="img-fluid">
                                 </figure>
                             </a>
                         </aside>
 
                         <aside class="wrapper__list__article">
-                            <h4 class="border_section">newsletter</h4>
+                            <h4 class="border_section">
+                                {{ _('Đăng ký nhận tin') }}
+                            </h4>
                             <!-- Form Subscribe -->
                             <div class="widget__form-subscribe bg__card-shadow">
                                 <h6>
-                                    The most important world news and events of the day.
+                                    {{ _('Nhận bản tin hàng ngày từ chúng tôi') }}
                                 </h6>
-                                <p><small>Get magzrenvi daily newsletter on your inbox.</small></p>
+                                <p><small>
+                                        {{ _('Vui lòng nhập email của bạn') }}
+                                    </small></p>
                                 <div class="input-group ">
-                                    <input type="text" class="form-control" placeholder="Your email address">
+                                    <input type="text" class="form-control"
+                                        placeholder="{{ _('Địa chỉ email') }}">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">sign up</button>
+                                        <button class="btn btn-primary" type="button">
+                                            {{ _('Đăng ký') }}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
