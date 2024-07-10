@@ -49,7 +49,6 @@
                                                     <th>Trạng Thái</th>
                                                     <th>Tin Hot</th>
                                                     <th>Slider</th>
-                                                    <th>Phổ Biến</th>
                                                     <th>Thao Tác</th>
                                                 </tr>
                                             </thead>
@@ -89,17 +88,6 @@
                                                                 <input {{ $new->show_at_slider === 1 ? 'checked' : '' }}
                                                                     data-id="{{ $new->id }}"
                                                                     data-name="show_at_slider" value="1"
-                                                                    type="checkbox"
-                                                                    class="custom-switch-input toggle-status">
-                                                                <span class="custom-switch-indicator"></span>
-                                                            </label>
-                                                        </td>
-
-                                                        <td>
-                                                            <label class="custom-switch mt-2">
-                                                                <input {{ $new->show_at_popular === 1 ? 'checked' : '' }}
-                                                                    data-id="{{ $new->id }}"
-                                                                    data-name="show_at_popular" value="1"
                                                                     type="checkbox"
                                                                     class="custom-switch-input toggle-status">
                                                                 <span class="custom-switch-indicator"></span>

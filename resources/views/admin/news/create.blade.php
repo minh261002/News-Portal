@@ -119,23 +119,10 @@
                                 </label>
                             </div>
                         </div>
-
-                        <div class="col-md-3">
-
-                            <div class="form-group">
-                                <div class="control-label">Hiển thị phổ biến</div>
-                                <label class="custom-switch mt-2">
-                                    <input value="1" type="checkbox" name="show_at_popular"
-                                        class="custom-switch-input">
-                                    <span class="custom-switch-indicator"></span>
-                                </label>
-                            </div>
-
-                        </div>
-
                     </div>
 
                     <button type="submit" class="btn btn-primary">Thêm bài viết</button>
+                    <a href="{{ route('admin.new.index') }}" class="btn btn-danger">Quay Lại</a>
                 </form>
             </div>
         </div>
