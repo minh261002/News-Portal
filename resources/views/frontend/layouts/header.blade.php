@@ -22,6 +22,12 @@
                                 <a href="#"><i class="fa fa-instagram"></i></a>
                             </li>
                         </ul>
+
+                        <div class="topbar-text d-flex align-items-center justify-center gap-3">
+                            <i class="fa fa-calendar"></i>
+                            <p class="ml-3 mb-0">
+                                {{ \Carbon\Carbon::now()->translatedFormat('l, d-m-Y') }}</p>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-4">
@@ -69,7 +75,7 @@
                 </div>
                 <figure class="mb-0 mx-auto">
                     <a href="{{ route('home') }}">
-                        <img src="images/logo1.png" alt="" class="img-fluid logo">
+                        <img src="{{ asset($setting['site_logo']) }}" alt="" class="img-fluid logo">
                     </a>
                 </figure>
 

@@ -6,7 +6,7 @@
                             <div class="col-md-4">
                                 <div class="widget__footer">
                                     <figure class="image-logo">
-                                        <img src="images/logo2.png" alt="" class="logo-footer">
+                                        <img src="{{ asset($setting['site_logo']) }}" alt="" class="logo-footer">
                                     </figure>
 
                                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius magnam harum iure
@@ -146,7 +146,9 @@
                             <div class="col-md-12">
                                 <div class="border-top-1 bg__footer-bottom-section">
                                     <p class="text-white text-center">
-                                        Copyright © 2023 Top News Theme by WebSolutionUS</p>
+                                        &copy; 2024 <a href="#" class="text-white">Owen Blog</a> All Rights
+                                        Reserved.
+                                    </p>
 
                                 </div>
 
