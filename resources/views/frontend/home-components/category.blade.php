@@ -4,246 +4,149 @@
             <div class="row">
                 <div class="col-md-12 col-lg-8">
                     <div class="wrapper__list__article">
-                        <h4 class="border_section">recent post</h4>
+                        <h4 class="border_section">
+                            {{ _('Bài viết mới') }}
+                        </h4>
                     </div>
                     <div class="row ">
-                        <div class="col-sm-12 col-md-6 mb-4">
-                            <!-- Post Article -->
-                            <div class="card__post ">
-                                <div class="card__post__body card__post__transition">
-                                    <a href="blog_details.html">
-                                        <img src="images/newsimage8.png" class="img-fluid" alt="">
-                                    </a>
-                                    <div class="card__post__content bg__post-cover">
-                                        <div class="card__post__category">
-                                            politics
-                                        </div>
-                                        <div class="card__post__title">
-                                            <h5>
-                                                <a href="blog_details.html">
-                                                    Barack Obama and Family Visit borobudur temple enjoy holiday
-                                                    indonesia.</a>
-                                            </h5>
-                                        </div>
-                                        <div class="card__post__author-info">
-                                            <ul class="list-inline">
-                                                <li class="list-inline-item">
-                                                    <a href="blog_details.html">
-                                                        by david hall
-                                                    </a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <span>
-                                                        Descember 09, 2016
-                                                    </span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6 mb-4">
-                            <!-- Post Article -->
-                            <div class="card__post ">
-                                <div class="card__post__body card__post__transition">
-                                    <a href="blog_details.html">
-                                        <img src="images/newsimage9.png" class="img-fluid" alt="">
-                                    </a>
-                                    <div class="card__post__content bg__post-cover">
-                                        <div class="card__post__category">
-                                            politics
-                                        </div>
-                                        <div class="card__post__title">
-                                            <h5>
-                                                <a href="blog_details.html">
-                                                    Barack Obama and Family Visit borobudur temple enjoy holiday
-                                                    indonesia.</a>
-                                            </h5>
-                                        </div>
-                                        <div class="card__post__author-info">
-                                            <ul class="list-inline">
-                                                <li class="list-inline-item">
-                                                    <a href="blog_details.html">
-                                                        by david hall
-                                                    </a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <span>
-                                                        Descember 09, 2016
-                                                    </span>
-                                                </li>
-                                            </ul>
+                        @foreach ($recentNews as $news)
+                            @if ($loop->index <= 1)
+                                <div class="col-sm-12 col-md-6 mb-4">
+                                    <!-- Post Article -->
+                                    <div class="card__post ">
+                                        <div class="card__post__body card__post__transition">
+                                            <a href="{{ route('news.detail', $news->slug) }}">
+                                                <img src="{{ asset($news->image) }}" class="img-fluid" alt="">
+                                            </a>
+                                            <div class="card__post__content bg__post-cover">
+                                                <div class="card__post__category">
+                                                    {{ $news->category->name }}
+                                                </div>
+                                                <div class="card__post__title">
+                                                    <h5>
+                                                        <a href="{{ route('news.detail', $news->slug) }}">
+                                                            {{ $news->title }}
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div class="card__post__author-info">
+                                                    <ul class="list-inline">
+                                                        <li class="list-inline-item">
+                                                            <a href="{{ route('news.detail', $news->slug) }}">
+                                                                {{ $news->author->name }}
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-inline-item">
+                                                            <span>
+                                                                {{ $news->created_at->format('M d, Y') }}
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                            </div>
-                        </div>
+                                </div>
+                            @endif
+                        @endforeach
                     </div>
+
                     <div class="row ">
                         <div class="col-sm-12 col-md-6">
                             <div class="wrapp__list__article-responsive">
-                                <div class="mb-3">
-                                    <!-- Post Article -->
-                                    <div class="card__post card__post-list">
-                                        <div class="image-sm">
-                                            <a href="blog_details.html">
-                                                <img src="images/news1.jpg" class="img-fluid" alt="">
-                                            </a>
-                                        </div>
-
-
-                                        <div class="card__post__body ">
-                                            <div class="card__post__content">
-
-                                                <div class="card__post__author-info mb-2">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <span class="text-primary">
-                                                                by david hall
-                                                            </span>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <span class="text-dark text-capitalize">
-                                                                descember 09, 2016
-                                                            </span>
-                                                        </li>
-
-                                                    </ul>
+                                @foreach ($recentNews as $news)
+                                    @if ($loop->index > 1 && $loop->index <= 3)
+                                        <div class="mb-3">
+                                            <!-- Post Article -->
+                                            <div class="card__post card__post-list">
+                                                <div class="image-sm">
+                                                    <a href="{{ route('news.detail', $news->slug) }}">
+                                                        <img src="{{ asset($news->image) }}" class="img-fluid"
+                                                            alt="">
+                                                    </a>
                                                 </div>
-                                                <div class="card__post__title">
-                                                    <h6>
-                                                        <a href="blog_details.html">
-                                                            6 Best Tips for Building a Good Shipping Boat
-                                                        </a>
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <!-- Post Article -->
-                                    <div class="card__post card__post-list">
-                                        <div class="image-sm">
-                                            <a href="blog_details.html">
-                                                <img src="images/news2.jpg" class="img-fluid" alt="">
-                                            </a>
-                                        </div>
 
 
-                                        <div class="card__post__body ">
-                                            <div class="card__post__content">
+                                                <div class="card__post__body ">
+                                                    <div class="card__post__content">
 
-                                                <div class="card__post__author-info mb-2">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <span class="text-primary">
-                                                                by david hall
-                                                            </span>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <span class="text-dark text-capitalize">
-                                                                descember 09, 2016
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="card__post__title">
-                                                    <h6>
-                                                        <a href="blog_details.html">
-                                                            6 Best Tips for Building a Good Shipping Boat
-                                                        </a>
-                                                    </h6>
+                                                        <div class="card__post__author-info mb-2">
+                                                            <ul class="list-inline">
+                                                                <li class="list-inline-item">
+                                                                    <span class="text-primary">
+                                                                        {{ $news->author->name }}
+                                                                    </span>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <span class="text-dark text-capitalize">
+                                                                        {{ $news->created_at->format('d M, Y') }}
+                                                                    </span>
+                                                                </li>
+
+                                                            </ul>
+                                                        </div>
+                                                        <div class="card__post__title">
+                                                            <h6>
+                                                                <a href="{{ route('news.detail', $news->slug) }}">
+                                                                    {{ $news->title }}
+                                                                </a>
+                                                            </h6>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6 ">
                             <div class="wrapp__list__article-responsive">
-                                <div class="mb-3">
-                                    <!-- Post Article -->
-                                    <div class="card__post card__post-list">
-                                        <div class="image-sm">
-                                            <a href="blog_details.html">
-                                                <img src="images/news3.jpg" class="img-fluid" alt="">
-                                            </a>
-                                        </div>
-
-                                        <div class="card__post__body ">
-                                            <div class="card__post__content">
-
-                                                <div class="card__post__author-info mb-2">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <span class="text-primary">
-                                                                by david hall
-                                                            </span>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <span class="text-dark text-capitalize">
-                                                                descember 09, 2016
-                                                            </span>
-                                                        </li>
-
-                                                    </ul>
+                                @foreach ($recentNews as $news)
+                                    @if ($loop->index > 1 && $loop->index > 3)
+                                        <div class="mb-3">
+                                            <!-- Post Article -->
+                                            <div class="card__post card__post-list">
+                                                <div class="image-sm">
+                                                    <a href="{{ route('news.detail', $news->slug) }}">
+                                                        <img src="{{ asset($news->image) }}" class="img-fluid"
+                                                            alt="">
+                                                    </a>
                                                 </div>
-                                                <div class="card__post__title">
-                                                    <h6>
-                                                        <a href="blog_details.html">
-                                                            6 Best Tips for Building a Good Shipping Boat
-                                                        </a>
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <!-- Post Article -->
-                                    <div class="card__post card__post-list">
-                                        <div class="image-sm">
-                                            <a href="blog_details.html">
-                                                <img src="images/news4.jpg" class="img-fluid" alt="">
-                                            </a>
-                                        </div>
 
 
-                                        <div class="card__post__body ">
-                                            <div class="card__post__content">
+                                                <div class="card__post__body ">
+                                                    <div class="card__post__content">
 
-                                                <div class="card__post__author-info mb-2">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <span class="text-primary">
-                                                                by david hall
-                                                            </span>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <span class="text-dark text-capitalize">
-                                                                descember 09, 2016
-                                                            </span>
-                                                        </li>
+                                                        <div class="card__post__author-info mb-2">
+                                                            <ul class="list-inline">
+                                                                <li class="list-inline-item">
+                                                                    <span class="text-primary">
+                                                                        {{ $news->author->name }}
+                                                                    </span>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <span class="text-dark text-capitalize">
+                                                                        {{ $news->created_at->format('d M, Y') }}
+                                                                    </span>
+                                                                </li>
 
-                                                    </ul>
-                                                </div>
-                                                <div class="card__post__title">
-                                                    <h6>
-                                                        <a href="blog_details.html">
-                                                            6 Best Tips for Building a Good Shipping Boat
-                                                        </a>
-                                                    </h6>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="card__post__title">
+                                                            <h6>
+                                                                <a href="{{ route('news.detail', $news->slug) }}">
+                                                                    {{ $news->title }}
+                                                                </a>
+                                                            </h6>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-
                                         </div>
-                                    </div>
-                                </div>
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -252,101 +155,31 @@
 
                 <div class="col-md-12 col-lg-4">
                     <aside class="wrapper__list__article">
-                        <h4 class="border_section">popular post</h4>
+                        <h4 class="border_section">Phổ Biến</h4>
                         <div class="wrapper__list-number">
 
                             <!-- List Article -->
-                            <div class="card__post__list">
-                                <div class="list-number">
-                                    <span>
-                                        1
-                                    </span>
+                            @foreach ($popularNews as $news)
+                                <div class="card__post__list">
+                                    <div class="list-number">
+                                        <span>
+                                            {{ $loop->iteration }}
+                                        </span>
+                                    </div>
+                                    <a href="#" class="category">
+                                        {{ $news->category->name }}
+                                    </a>
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item">
+                                            <h5>
+                                                <a href="{{ route('news.detail', $news->slug) }}">
+                                                    {{ truncate($news->title, 50) }}
+                                                </a>
+                                            </h5>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <a href="#" class="category">
-                                    covid-19
-                                </a>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <h5>
-                                            <a href="#">
-                                                Gegera Corona, Kekayaan Bos Zoom Nambah Rp 64 T dalam 3 Bulan - CNBC
-                                                Indonesia
-
-                                            </a>
-                                        </h5>
-                                    </li>
-                                </ul>
-                            </div>
-
-
-                            <div class="card__post__list">
-                                <div class="list-number">
-                                    <span>
-                                        2
-                                    </span>
-                                </div>
-                                <a href="#" class="category">
-                                    Startup
-                                </a>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <h5>
-                                            <a href="#">
-                                                Gegera Corona, Kekayaan Bos Zoom Nambah Rp 64 T dalam 3 Bulan - CNBC
-                                                Indonesia
-
-                                            </a>
-                                        </h5>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- List Article -->
-                            <div class="card__post__list">
-                                <div class="list-number">
-                                    <span>
-                                        1
-                                    </span>
-                                </div>
-                                <a href="#" class="category">
-                                    covid-19
-                                </a>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-
-                                        <h5>
-                                            <a href="#">
-                                                Gegera Corona, Kekayaan Bos Zoom Nambah Rp 64 T dalam 3 Bulan - CNBC
-                                                Indonesia
-
-                                            </a>
-                                        </h5>
-                                    </li>
-                                </ul>
-
-                            </div>
-
-
-                            <div class="card__post__list">
-                                <div class="list-number">
-                                    <span>
-                                        2
-                                    </span>
-                                </div>
-                                <a href="#" class="category">
-                                    Startup
-                                </a>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <h5>
-                                            <a href="#">
-                                                Gegera Corona, Kekayaan Bos Zoom Nambah Rp 64 T dalam 3 Bulan - CNBC
-                                                Indonesia
-
-                                            </a>
-                                        </h5>
-                                    </li>
-                                </ul>
-                            </div>
+                            @endforeach
                         </div>
                     </aside>
                 </div>

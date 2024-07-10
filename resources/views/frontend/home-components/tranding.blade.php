@@ -33,7 +33,7 @@
                                         </div>
                                         <div class="card__post__title">
                                             <h6>
-                                                <a href="./blog_details.html">
+                                                <a href="{{ route('news.detail', $item->slug) }}">
                                                     {!! truncate($item->title, 50) !!}
                                                 </a>
                                             </h6>
