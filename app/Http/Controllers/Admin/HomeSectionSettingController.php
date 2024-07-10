@@ -25,6 +25,7 @@ class HomeSectionSettingController extends Controller
                 'category_section_2' => $request->category_section_2,
                 'category_section_3' => $request->category_section_3,
                 'category_section_4' => $request->category_section_4,
+                'category_section_5' => $request->category_section_5,
             ]
         );
 

@@ -15,6 +15,7 @@ class HomeSectionSetting extends Model
         'category_section_2',
         'category_section_3',
         'category_section_4',
+        'category_section_5',
     ];
 
 }

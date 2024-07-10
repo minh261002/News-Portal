@@ -193,7 +193,7 @@
             <div class="col-md-12">
                 <aside class="wrapper__list__article">
                     <h4 class="border_section">
-                        {{ $homeSection1->first()->category->name }}
+                        {{ $homeSection1->first()->category->name ?? 'Bài viết' }}
                     </h4>
                 </aside>
             </div>
@@ -392,11 +392,11 @@
                                                     <div class="card__post__title">
                                                         <h5>
                                                             <a href="{{ route('news.detail', $news->slug) }}">
-                                                                Exercitation Ullamco Laboris Nisi Ut Aliquip
+                                                                {{ truncate($news->title, 50) }}
                                                             </a>
                                                         </h5>
                                                         <p class="d-none d-lg-block d-xl-block mb-0">
-                                                            {{ truncate($news->content, 100) }}
+                                                            {!! truncate($news->content, 100) !!}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -418,123 +418,91 @@
                     <div class="sticky-top">
                         <aside class="wrapper__list__article">
                             <h4 class="border_section">
-                                Latest post</h4>
+                                {{ $homeSection5->first()->category->name ?? 'Bài viết' }}
+                            </h4>
                             <div class="wrapper__list__article-small">
-
-                                <!-- Post Article -->
-                                <div class="article__entry">
-                                    <div class="article__image">
-                                        <a href="#">
-                                            <img src="images/newsimage2.png" alt="" class="img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="article__content">
-                                        <div class="article__category">
-                                            travel
-                                        </div>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <span class="text-primary">
-                                                    by david hall
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <span class="text-dark text-capitalize">
-                                                    descember 09, 2016
-                                                </span>
-                                            </li>
-
-                                        </ul>
-                                        <h5>
-                                            <a href="#">
-                                                Proin eu nisl et arcu iaculis placerat sollicitudin ut est
-                                            </a>
-                                        </h5>
-                                        <p>
-                                            Maecenas accumsan tortor ut velit pharetra mollis. Proin eu nisl et arcu
-                                            iaculis placerat sollicitudin ut
-                                            est. In fringilla dui dui.
-                                        </p>
-                                        <a href="#" class="btn btn-outline-primary mb-4 text-capitalize">
-                                            read
-                                            more</a>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
+                                @foreach ($homeSection5 as $news)
                                     <!-- Post Article -->
-                                    <div class="card__post card__post-list">
-                                        <div class="image-sm">
-                                            <a href="blog_details.html">
-                                                <img src="images/news1.jpg" class="img-fluid" alt="">
-                                            </a>
-                                        </div>
-
-                                        <div class="card__post__body ">
-                                            <div class="card__post__content">
-                                                <div class="card__post__author-info mb-2">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <span class="text-primary">
-                                                                by david hall
-                                                            </span>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <span class="text-dark text-capitalize">
-                                                                descember 09, 2016
-                                                            </span>
-                                                        </li>
-
-                                                    </ul>
+                                    @if ($loop->first)
+                                        <div class="article__entry">
+                                            <div class="article__image">
+                                                <a href="{{ route('news.detail', $news->slug) }}">
+                                                    <img src="{{ asset($news->image) }}" alt=""
+                                                        class="img-fluid">
+                                                </a>
+                                            </div>
+                                            <div class="article__content">
+                                                <div class="article__category">
+                                                    {{ $news->category->name }}
                                                 </div>
-                                                <div class="card__post__title">
-                                                    <h6>
-                                                        <a href="blog_details.html">
-                                                            6 Best Tips for Building a Good Shipping Boat
-                                                        </a>
-                                                    </h6>
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item">
+                                                        <span class="text-primary">
+                                                            {{ $news->author->name }}
+                                                        </span>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <span class="text-dark text-capitalize">
+                                                            {{ $news->created_at->format('d M, Y') }}
+                                                        </span>
+                                                    </li>
+
+                                                </ul>
+                                                <h5>
+                                                    <a href="#">
+                                                        {{ truncate($news->title, 50) }}
+                                                    </a>
+                                                </h5>
+                                                <p>
+                                                    {!! truncate($news->content, 100) !!}
+                                                </p>
+                                                <a href="#"
+                                                    class="btn btn-outline-primary mb-4 text-capitalize">
+                                                    {{ _('Xem chi tiết') }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="mb-3">
+                                            <!-- Post Article -->
+                                            <div class="card__post card__post-list">
+                                                <div class="image-sm">
+                                                    <a href="{{ route('news.detail', $news->slug) }}">
+                                                        <img src="{{ asset($news->image) }}" class="img-fluid"
+                                                            alt="">
+                                                    </a>
+                                                </div>
+
+                                                <div class="card__post__body ">
+                                                    <div class="card__post__content">
+                                                        <div class="card__post__author-info mb-2">
+                                                            <ul class="list-inline">
+                                                                <li class="list-inline-item">
+                                                                    <span class="text-primary">
+                                                                        {{ $news->author->name }}
+                                                                    </span>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <span class="text-dark text-capitalize">
+                                                                        {{ $news->created_at->format('d M, Y') }}
+                                                                    </span>
+                                                                </li>
+
+                                                            </ul>
+                                                        </div>
+                                                        <div class="card__post__title">
+                                                            <h6>
+                                                                <a href="{{ route('news.detail', $news->slug) }}">
+                                                                    {{ truncate($news->title, 50) }}
+                                                                </a>
+                                                            </h6>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <!-- Post Article -->
-                                    <div class="card__post card__post-list">
-                                        <div class="image-sm">
-                                            <a href="blog_details.html">
-                                                <img src="images/news2.jpg" class="img-fluid" alt="">
-                                            </a>
-                                        </div>
-
-                                        <div class="card__post__body ">
-                                            <div class="card__post__content">
-
-                                                <div class="card__post__author-info mb-2">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <span class="text-primary">
-                                                                by david hall
-                                                            </span>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <span class="text-dark text-capitalize">
-                                                                descember 09, 2016
-                                                            </span>
-                                                        </li>
-
-                                                    </ul>
-                                                </div>
-                                                <div class="card__post__title">
-                                                    <h6>
-                                                        <a href="blog_details.html">
-                                                            6 Best Tips for Building a Good Shipping Boat
-                                                        </a>
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    @endif
+                                @endforeach
                             </div>
                         </aside>
 

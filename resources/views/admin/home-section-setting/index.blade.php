@@ -112,6 +112,22 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label for="">Chọn danh mục 5</label>
+                                        <select name="category_section_5" class="form-control select2">
+                                            <option value="">-- Chọn danh mục --</option>
+                                            @foreach ($categories as $category)
+                                                <option
+                                                    {{ @$homeSectionSetting->category_section_5 == $category->id ? 'selected' : '' }}
+                                                    value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+
+                                        @error('category_section_5')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
                                         <button type="submit" class="btn btn-primary">{{ __('Lưu thay đổi') }}</button>
                                     </div>
                                 </form>

@@ -62,6 +62,13 @@ class HomeController extends Controller
             ->take(6)
             ->get();
 
+        $homeSection5 = News::where('category_id', $homeSectionSetting->category_section_5)
+            ->activeEntries()
+            ->withLocalize()
+            ->orderBy('created_at', 'desc')
+            ->take(6)
+            ->get();
+
         return view(
             'frontend.home',
             compact(
@@ -72,7 +79,8 @@ class HomeController extends Controller
                 'homeSection1',
                 'homeSection2',
                 'homeSection3',
-                'homeSection4'
+                'homeSection4',
+                'homeSection5'
             )
         );
     }

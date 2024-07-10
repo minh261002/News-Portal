@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('category_section_2');
             $table->string('category_section_3');
             $table->string('category_section_4');
+            $table->string('category_section_5');
             $table->string('language');
             $table->timestamps();
         });
