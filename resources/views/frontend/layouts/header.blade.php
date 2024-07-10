@@ -22,11 +22,6 @@
                                 <a href="#"><i class="fa fa-instagram"></i></a>
                             </li>
                         </ul>
-                        <div class="topbar-text">
-                            @php
-                                echo date('d/m/Y');
-                            @endphp
-                        </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-4">
@@ -47,8 +42,12 @@
                         </div>
 
                         <ul class="topbar-link">
-                            <li><a href="login.html">Login</a></li>
-                            <li><a href="register.html">Register</a></li>
+                            <li><a href="{{ route('login') }}">
+                                    {{ _('Đăng Nhập') }}
+                                </a></li>
+                            <li><a href="{{ route('register') }}">
+                                    {{ _('Đăng Ký') }}
+                                </a></li>
                         </ul>
                     </div>
                 </div>
@@ -69,7 +68,7 @@
                     </div>
                 </div>
                 <figure class="mb-0 mx-auto">
-                    <a href="index.html">
+                    <a href="{{ route('home') }}">
                         <img src="images/logo1.png" alt="" class="img-fluid logo">
                     </a>
                 </figure>
@@ -109,19 +108,18 @@
                     <div class="top-search navigation-shadow">
                         <div class="container">
                             <div class="input-group ">
-                                <form action="#">
+                                <form action="{{ route('news') }}" method="GET">
 
-                                    <div class="row no-gutters mt-3">
+                                    <div class="row no-gutters mt-3 position-relative">
                                         <div class="col">
                                             <input class="form-control border-secondary border-right-0 rounded-0"
-                                                type="search" value="" placeholder="Search "
-                                                id="example-search-input4">
+                                                type="search" placeholder="{{ _('Tìm Kiếm') }} "
+                                                id="example-search-input4" name="search">
                                         </div>
-                                        <div class="col-auto">
-                                            <a class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right"
-                                                href="/search-result.html">
+                                        <div class="col-auto position-absolute" style="right: 0">
+                                            <button class="btn">
                                                 <i class="fa fa-search"></i>
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
 
