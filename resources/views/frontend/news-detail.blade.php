@@ -423,229 +423,226 @@
                     </div>
 
                 </div>
-
-                <div class="col-md-4">
-                    <div class="sticky-top">
-                        <aside class="wrapper__list__article ">
-                            <!-- <h4 class="border_section">Sidebar</h4> -->
-                            <div class="mb-4">
-                                <div class="widget__form-search-bar  ">
-                                    <div class="row no-gutters">
-                                        <div class="col">
-                                            <input class="form-control border-secondary border-right-0 rounded-0"
-                                                value="" placeholder="Search">
-                                        </div>
-                                        <div class="col-auto">
-                                            <button
-                                                class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right">
-                                                <i class="fa fa-search"></i>
-                                            </button>
-                                        </div>
+            </div>
+            <div class="col-md-4">
+                <div class="sticky-top">
+                    <aside class="wrapper__list__article ">
+                        <!-- <h4 class="border_section">Sidebar</h4> -->
+                        <div class="mb-4">
+                            <div class="widget__form-search-bar  ">
+                                <div class="row no-gutters">
+                                    <div class="col">
+                                        <input class="form-control border-secondary border-right-0 rounded-0"
+                                            value="" placeholder="Search">
                                     </div>
-                                </div>
-                            </div>
-                            <div class="wrapper__list__article-small">
-                                @forelse ($recentNews as $item)
-                                    @if ($loop->index <= 3)
-                                        <div class="mb-3">
-                                            <!-- Post Article -->
-                                            <div class="card__post card__post-list">
-                                                <div class="image-sm">
-                                                    <a href="{{ route('news.detail', $item->slug) }}">
-                                                        <img src="{{ asset($item->image) }}" class="img-fluid"
-                                                            alt="">
-                                                    </a>
-                                                </div>
-
-
-                                                <div class="card__post__body ">
-                                                    <div class="card__post__content">
-
-                                                        <div class="card__post__author-info mb-2">
-                                                            <ul class="list-inline">
-                                                                <li class="list-inline-item">
-                                                                    <span class="text-primary">
-                                                                        {{ $item->author->name }}
-                                                                    </span>
-                                                                </li>
-                                                                <li class="list-inline-item">
-                                                                    <span class="text-dark text-capitalize">
-                                                                        {{ $item->created_at->format('d M, Y') }}
-                                                                    </span>
-                                                                </li>
-
-                                                            </ul>
-                                                        </div>
-                                                        <div class="card__post__title">
-                                                            <h6>
-                                                                <a href="{{ route('news.detail', $item->slug) }}">
-                                                                    {{ $item->title }}
-                                                                </a>
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endif
-
-                                    <!-- Post Article -->
-                                    @if ($loop->index === 4)
-                                        <div class="article__entry">
-                                            <div class="article__image">
-                                                <a href="#">
-                                                    <img src="{{ asset($item->image) }}" alt=""
-                                                        class="img-fluid">
-                                                </a>
-                                            </div>
-                                            <div class="article__content">
-                                                <div class="article__category">
-                                                    <a href="#" class="text-white">
-                                                        {{ $item->category->name }}
-                                                    </a>
-                                                </div>
-                                                <ul class="list-inline">
-                                                    <li class="list-inline-item">
-                                                        <span class="text-primary">
-                                                            {{ $item->author->name }}
-                                                        </span>
-                                                    </li>
-                                                    <li class="list-inline-item">
-                                                        <span class="text-dark text-capitalize">
-                                                            {{ $item->created_at->format('d M, Y') }}
-                                                        </span>
-                                                    </li>
-
-                                                </ul>
-                                                <h5>
-                                                    <a href="{{ route('news.detail', $item->slug) }}">
-                                                        {{ $item->title }}
-                                                    </a>
-                                                </h5>
-                                                <p>
-                                                    {!! Str::limit($item->content, 100) !!}
-                                                </p>
-                                                <a href="{{ route('news.detail', $item->slug) }}"
-                                                    class="btn btn-outline-primary mb-4 text-capitalize">
-                                                    {{ _('Xem thêm') }}
-                                                </a>
-                                            </div>
-                                        </div>
-                                    @endif
-                                @empty
-                                    <div class="alert alert-warning">
-                                        {{ _('Không có bài viết liên quan') }}
-                                    </div>
-                                @endforelse
-                            </div>
-                        </aside>
-
-                        <!-- social media -->
-                        <aside class="wrapper__list__article">
-                            <h4 class="border_section">
-                                {{ _('Kết nối với chúng tôi') }}
-                            </h4>
-                            <!-- widget Social media -->
-                            <div class="wrap__social__media">
-                                <a href="#" target="_blank">
-                                    <div class="social__media__widget facebook">
-                                        <span class="social__media__widget-icon">
-                                            <i class="fa fa-facebook"></i>
-                                        </span>
-                                        <span class="social__media__widget-counter">
-                                            19,243 fans
-                                        </span>
-                                        <span class="social__media__widget-name">
-                                            like
-                                        </span>
-                                    </div>
-                                </a>
-                                <a href="#" target="_blank">
-                                    <div class="social__media__widget twitter">
-                                        <span class="social__media__widget-icon">
-                                            <i class="fa fa-twitter"></i>
-                                        </span>
-                                        <span class="social__media__widget-counter">
-                                            2.076 followers
-                                        </span>
-                                        <span class="social__media__widget-name">
-                                            follow
-                                        </span>
-                                    </div>
-                                </a>
-                                <a href="#" target="_blank">
-                                    <div class="social__media__widget youtube">
-                                        <span class="social__media__widget-icon">
-                                            <i class="fa fa-youtube"></i>
-                                        </span>
-                                        <span class="social__media__widget-counter">
-                                            15,200 followers
-                                        </span>
-                                        <span class="social__media__widget-name">
-                                            subscribe
-                                        </span>
-                                    </div>
-                                </a>
-
-                            </div>
-                        </aside>
-                        <!-- End social media -->
-
-                        <aside class="wrapper__list__article">
-                            <h4 class="border_section">Tags</h4>
-                            <div class="blog-tags p-0">
-                                <ul class="list-inline">
-                                    @forelse ($mostCommonTags as $tag)
-                                        <li class="list-inline-item">
-                                            <a href="#">
-                                                #{{ $tag->name }}
-                                            </a>
-                                        </li>
-                                    @empty
-                                        <div class="alert alert-warning">
-                                            {{ _('Không có thẻ nào') }}
-                                        </div>
-                                    @endforelse
-                                </ul>
-                            </div>
-                        </aside>
-
-                        <aside class="wrapper__list__article">
-                            <h4 class="border_section">
-                                {{ _('Đăng ký nhận tin') }}
-                            </h4>
-                            <!-- Form Subscribe -->
-                            <div class="widget__form-subscribe bg__card-shadow">
-                                <h6>
-                                    {{ _('Đăng ký nhận tin') }}
-                                </h6>
-                                <p><small>
-                                        {{ _('Nhận thông báo về các bài viết mới nhất của chúng tôi') }}
-                                    </small></p>
-                                <div class="input-group ">
-                                    <input type="text" class="form-control"
-                                        placeholder="{{ _('Địa chỉ email của bạn') }}">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">
-                                            {{ _('Đăng ký') }}
+                                    <div class="col-auto">
+                                        <button class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right">
+                                            <i class="fa fa-search"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
-                        </aside>
+                        </div>
+                        <div class="wrapper__list__article-small">
+                            @forelse ($recentNews as $item)
+                                @if ($loop->index <= 3)
+                                    <div class="mb-3">
+                                        <!-- Post Article -->
+                                        <div class="card__post card__post-list">
+                                            <div class="image-sm">
+                                                <a href="{{ route('news.detail', $item->slug) }}">
+                                                    <img src="{{ asset($item->image) }}" class="img-fluid"
+                                                        alt="">
+                                                </a>
+                                            </div>
 
-                        <aside class="wrapper__list__article">
-                            <h4 class="border_section">Quảng Cáo</h4>
-                            <a href="#">
-                                <figure>
-                                    <img src="{{ asset('frontend/images/news6.jpg') }}" alt=""
-                                        class="img-fluid">
-                                </figure>
+
+                                            <div class="card__post__body ">
+                                                <div class="card__post__content">
+
+                                                    <div class="card__post__author-info mb-2">
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item">
+                                                                <span class="text-primary">
+                                                                    {{ $item->author->name }}
+                                                                </span>
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <span class="text-dark text-capitalize">
+                                                                    {{ $item->created_at->format('d M, Y') }}
+                                                                </span>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                    <div class="card__post__title">
+                                                        <h6>
+                                                            <a href="{{ route('news.detail', $item->slug) }}">
+                                                                {{ $item->title }}
+                                                            </a>
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+
+                                <!-- Post Article -->
+                                @if ($loop->index === 4)
+                                    <div class="article__entry">
+                                        <div class="article__image">
+                                            <a href="#">
+                                                <img src="{{ asset($item->image) }}" alt="" class="img-fluid">
+                                            </a>
+                                        </div>
+                                        <div class="article__content">
+                                            <div class="article__category">
+                                                <a href="#" class="text-white">
+                                                    {{ $item->category->name }}
+                                                </a>
+                                            </div>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <span class="text-primary">
+                                                        {{ $item->author->name }}
+                                                    </span>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <span class="text-dark text-capitalize">
+                                                        {{ $item->created_at->format('d M, Y') }}
+                                                    </span>
+                                                </li>
+
+                                            </ul>
+                                            <h5>
+                                                <a href="{{ route('news.detail', $item->slug) }}">
+                                                    {{ $item->title }}
+                                                </a>
+                                            </h5>
+                                            <p>
+                                                {!! Str::limit($item->content, 100) !!}
+                                            </p>
+                                            <a href="{{ route('news.detail', $item->slug) }}"
+                                                class="btn btn-outline-primary mb-4 text-capitalize">
+                                                {{ _('Xem thêm') }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endif
+                            @empty
+                                <div class="alert alert-warning">
+                                    {{ _('Không có bài viết liên quan') }}
+                                </div>
+                            @endforelse
+                        </div>
+                    </aside>
+
+                    <!-- social media -->
+                    <aside class="wrapper__list__article">
+                        <h4 class="border_section">
+                            {{ _('Kết nối với chúng tôi') }}
+                        </h4>
+                        <!-- widget Social media -->
+                        <div class="wrap__social__media">
+                            <a href="#" target="_blank">
+                                <div class="social__media__widget facebook">
+                                    <span class="social__media__widget-icon">
+                                        <i class="fa fa-facebook"></i>
+                                    </span>
+                                    <span class="social__media__widget-counter">
+                                        19,243 fans
+                                    </span>
+                                    <span class="social__media__widget-name">
+                                        like
+                                    </span>
+                                </div>
                             </a>
-                        </aside>
-                    </div>
+                            <a href="#" target="_blank">
+                                <div class="social__media__widget twitter">
+                                    <span class="social__media__widget-icon">
+                                        <i class="fa fa-twitter"></i>
+                                    </span>
+                                    <span class="social__media__widget-counter">
+                                        2.076 followers
+                                    </span>
+                                    <span class="social__media__widget-name">
+                                        follow
+                                    </span>
+                                </div>
+                            </a>
+                            <a href="#" target="_blank">
+                                <div class="social__media__widget youtube">
+                                    <span class="social__media__widget-icon">
+                                        <i class="fa fa-youtube"></i>
+                                    </span>
+                                    <span class="social__media__widget-counter">
+                                        15,200 followers
+                                    </span>
+                                    <span class="social__media__widget-name">
+                                        subscribe
+                                    </span>
+                                </div>
+                            </a>
+
+                        </div>
+                    </aside>
+                    <!-- End social media -->
+
+                    <aside class="wrapper__list__article">
+                        <h4 class="border_section">Tags</h4>
+                        <div class="blog-tags p-0">
+                            <ul class="list-inline">
+                                @forelse ($mostCommonTags as $tag)
+                                    <li class="list-inline-item">
+                                        <a href="#">
+                                            #{{ $tag->name }}
+                                        </a>
+                                    </li>
+                                @empty
+                                    <div class="alert alert-warning">
+                                        {{ _('Không có thẻ nào') }}
+                                    </div>
+                                @endforelse
+                            </ul>
+                        </div>
+                    </aside>
+
+                    <aside class="wrapper__list__article">
+                        <h4 class="border_section">
+                            {{ _('Đăng ký nhận tin') }}
+                        </h4>
+                        <!-- Form Subscribe -->
+                        <div class="widget__form-subscribe bg__card-shadow">
+                            <h6>
+                                {{ _('Đăng ký nhận tin') }}
+                            </h6>
+                            <p><small>
+                                    {{ _('Nhận thông báo về các bài viết mới nhất của chúng tôi') }}
+                                </small></p>
+                            <div class="input-group ">
+                                <input type="text" class="form-control"
+                                    placeholder="{{ _('Địa chỉ email của bạn') }}">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button">
+                                        {{ _('Đăng ký') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <aside class="wrapper__list__article">
+                        <h4 class="border_section">Quảng Cáo</h4>
+                        <a href="#">
+                            <figure>
+                                <img src="{{ asset('frontend/images/news6.jpg') }}" alt="" class="img-fluid">
+                            </figure>
+                        </a>
+                    </aside>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 @endsection
