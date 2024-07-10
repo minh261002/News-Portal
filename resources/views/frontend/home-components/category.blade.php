@@ -350,11 +350,13 @@
                         </div>
                     </aside>
 
-                    <div class="small_add_banner">
-                        <div class="small_add_banner_img">
-                            <img src="{{ asset('frontend/images/placeholder_large.jpg') }}" alt="adds">
+                    @if ($ads->home_middle_ad_status === 1)
+                        <div class="small_add_banner">
+                            <div class="small_add_banner_img">
+                                <img src="{{ asset($ads->home_middle_ad) }}" alt="adds">
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
                     <aside class="wrapper__list__article mt-5">
                         <h4 class="border_section">
@@ -566,17 +568,18 @@
                             </div>
                         </aside>
 
-                        <aside class="wrapper__list__article">
-                            <h4 class="border_section">
-                                {{ _('Quảng Cáo') }}
-                            </h4>
-                            <a href="#">
-                                <figure>
-                                    <img src="{{ asset('frontend/images/newsimage3.png') }}" alt=""
-                                        class="img-fluid">
-                                </figure>
-                            </a>
-                        </aside>
+                        @if ($ads->side_bar_ad_status === 1)
+                            <aside class="wrapper__list__article">
+                                <h4 class="border_section">
+                                    {{ _('Quảng Cáo') }}
+                                </h4>
+                                <a href="{{ $ads->side_bar_ad_url }}">
+                                    <figure>
+                                        <img src="{{ asset($ads->side_bar_ad) }}" alt="" class="img-fluid">
+                                    </figure>
+                                </a>
+                            </aside>
+                        @endif
 
                         <aside class="wrapper__list__article">
                             <h4 class="border_section">

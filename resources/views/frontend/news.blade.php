@@ -240,36 +240,36 @@
                             </div>
                         </aside>
 
-                        {{-- @if ($ad->side_bar_ad_status == 1)
-                            <aside class="wrapper__list__article">
-                                <h4 class="border_section">{{ __('frontend.Advertise') }}</h4>
-                                <a href="{{ $ad->side_bar_ad_url }}">
+                        @if ($ads->side_bar_ad_status == 1)
+                            <aside class="wrapper__list__article mt-5">
+                                <h4 class="border_section">{{ __('Quảng Cáo') }}</h4>
+                                <a href="{{ $ads->side_bar_ad_url }}">
                                     <figure>
-                                        <img src="{{ asset($ad->side_bar_ad) }}" alt="" class="img-fluid">
+                                        <img src="{{ asset($ads->side_bar_ad) }}" alt="" class="img-fluid">
                                     </figure>
                                 </a>
                             </aside>
-                        @endif --}}
+                        @endif
                     </div>
                 </div>
 
                 <div class="clearfix"></div>
             </div>
         </div>
-        {{-- @if ($ad->news_page_ad_status == 1)
-    <div class="large_add_banner my-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="large_add_banner_img">
-                        <a href="{{ $ad->news_page_ad_url }}">
-                            <img src="{{ asset($ad->news_page_ad) }}" alt="adds">
-                        </a>
+        @if ($ads->news_page_ad_status == 1)
+            <div class="large_add_banner my-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="large_add_banner_img">
+                                <a href="{{ $ads->news_page_ad_url }}">
+                                    <img src="{{ asset($ads->news_page_ad) }}" alt="adds">
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    @endif --}}
+        @endif
     </section>
 @endsection

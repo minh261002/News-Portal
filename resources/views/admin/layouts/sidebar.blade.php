@@ -32,6 +32,14 @@
                     <span>Trang Chủ</span>
                 </a>
             </li>
+
+            <li>
+                <a class="nav-link" href="{{ route('admin.ads') }}">
+                    <i class="far fa-square"></i>
+                    <span>Quảng Cáo</span>
+                </a>
+            </li>
+
             <li>
                 <a class="nav-link" href="{{ route('admin.languages.index') }}">
                     <i class="far fa-square"></i>

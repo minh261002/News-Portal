@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAuthenticationController;
+use App\Http\Controllers\Admin\AdsController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HomeSectionSettingController;
@@ -36,4 +37,7 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get('/home-section-setting', [HomeSectionSettingController::class, 'index'])->name('home-section-setting');
     Route::put('/home-section-setting', [HomeSectionSettingController::class, 'update'])->name('home-section-setting.update');
+
+    Route::get('/ads', [AdsController::class, 'index'])->name('ads');
+    Route::put('/ads/{id}', [AdsController::class, 'update'])->name('ads.update');
 });

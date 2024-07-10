@@ -9,17 +9,19 @@
     @include('frontend.home-components.popular')
     <!-- End Popular news -->
 
-    <div class="large_add_banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="large_add_banner_img">
-                        <img src="{{ asset('frontend/images/placeholder_large.jpg') }}" alt="adds">
+    @if ($ads->home_top_bar_ad_status && $ads->home_top_bar_ad)
+        <div class="large_add_banner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="large_add_banner_img">
+                            <img src="{{ asset($ads->home_top_bar_ad) }}" alt="adds">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
     <!-- Popular news category -->
     @include('frontend.home-components.category')

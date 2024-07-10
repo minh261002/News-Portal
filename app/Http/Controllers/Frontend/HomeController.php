@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ads;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\HomeSectionSetting;
@@ -77,6 +78,8 @@ class HomeController extends Controller
             ->take(10)
             ->get();
 
+        $ads = Ads::first();
+
         return view(
             'frontend.home',
             compact(
@@ -89,7 +92,8 @@ class HomeController extends Controller
                 'homeSection3',
                 'homeSection4',
                 'homeSection5',
-                'tags'
+                'tags',
+                'ads'
             )
         );
     }
@@ -128,7 +132,9 @@ class HomeController extends Controller
 
         $categories = Category::where(['status' => 1, 'language' => getLanguage()])->get();
 
-        return view('frontend.news', compact('news', 'recentNews', 'mostCommonTags', 'categories'));
+        $ads = Ads::first();
+
+        return view('frontend.news', compact('news', 'recentNews', 'mostCommonTags', 'categories', 'ads'));
     }
 
     public function detail(string $slug)
@@ -152,7 +158,8 @@ class HomeController extends Controller
         $previousNews = News::where('id', '<', $news->id)->activeEntries()->withLocalize()->orderBy('id', 'desc')->first();
         $relatedNews = News::where('category_id', $news->category_id)->where('slug', '!=', $news->slug)->activeEntries()->withLocalize()->orderBy('created_at', 'desc')->take(5)->get();
         $this->countView($news);
-        return view('frontend.news-detail', compact('news', 'recentNews', 'mostCommonTags', 'nextNews', 'previousNews', 'relatedNews', 'shareUrl'));
+        $ads = Ads::first();
+        return view('frontend.news-detail', compact('news', 'recentNews', 'mostCommonTags', 'nextNews', 'previousNews', 'relatedNews', 'shareUrl', 'ads'));
     }
 
     public function countView($news)

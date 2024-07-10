@@ -372,11 +372,13 @@
                         </div>
                     </div>
 
-                    <div class="small_add_banner mb-5 pb-4">
-                        <div class="small_add_banner_img">
-                            <img src="{{ asset('frontend/images/placeholder_large.jpg') }}" alt="adds">
+                    @if ($ads->view_page_ad_status === 1)
+                        <div class="small_add_banner mb-5 pb-4">
+                            <div class="small_add_banner_img">
+                                <img src="{{ asset($ads->view_page_ad) }}" alt="adds">
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
                     <div class="clearfix"></div>
 
@@ -430,17 +432,18 @@
                         <!-- <h4 class="border_section">Sidebar</h4> -->
                         <div class="mb-4">
                             <div class="widget__form-search-bar  ">
-                                <div class="row no-gutters">
+                                <form class="row no-gutters" action="{{ route('news') }}" method="GET">
                                     <div class="col">
                                         <input class="form-control border-secondary border-right-0 rounded-0"
-                                            value="" placeholder="Search">
+                                            placeholder="{{ _('Tìm kiếm') }}" name="search">
                                     </div>
                                     <div class="col-auto">
-                                        <button class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right">
+                                        <button type="submit"
+                                            class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right">
                                             <i class="fa fa-search"></i>
                                         </button>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                         <div class="wrapper__list__article-small">
@@ -551,23 +554,10 @@
                                         <i class="fa fa-facebook"></i>
                                     </span>
                                     <span class="social__media__widget-counter">
-                                        19,243 fans
+                                        Owen Bookstore
                                     </span>
                                     <span class="social__media__widget-name">
-                                        like
-                                    </span>
-                                </div>
-                            </a>
-                            <a href="#" target="_blank">
-                                <div class="social__media__widget twitter">
-                                    <span class="social__media__widget-icon">
-                                        <i class="fa fa-twitter"></i>
-                                    </span>
-                                    <span class="social__media__widget-counter">
-                                        2.076 followers
-                                    </span>
-                                    <span class="social__media__widget-name">
-                                        follow
+                                        {{ _('Theo dõi') }}
                                     </span>
                                 </div>
                             </a>
@@ -577,10 +567,10 @@
                                         <i class="fa fa-youtube"></i>
                                     </span>
                                     <span class="social__media__widget-counter">
-                                        15,200 followers
+                                        Owen Bookstore
                                     </span>
                                     <span class="social__media__widget-name">
-                                        subscribe
+                                        {{ _('Theo dõi') }}
                                     </span>
                                 </div>
                             </a>
@@ -632,14 +622,16 @@
                         </div>
                     </aside>
 
-                    <aside class="wrapper__list__article">
-                        <h4 class="border_section">Quảng Cáo</h4>
-                        <a href="#">
-                            <figure>
-                                <img src="{{ asset('frontend/images/news6.jpg') }}" alt="" class="img-fluid">
-                            </figure>
-                        </a>
-                    </aside>
+                    @if ($ads->side_bar_ad_status === 1)
+                        <aside class="wrapper__list__article">
+                            <h4 class="border_section">Quảng Cáo</h4>
+                            <a href="{{ $ads->side_bar_ad_url }}">
+                                <figure>
+                                    <img src="{{ asset($ads->side_bar_ad) }}" alt="" class="img-fluid">
+                                </figure>
+                            </a>
+                        </aside>
+                    @endif
                 </div>
             </div>
         </div>
