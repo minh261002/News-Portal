@@ -123,6 +123,46 @@
                     }
                 })
             })
+
+            $('#form-newsletter').on('submit', function(e) {
+                e.preventDefault();
+
+                let email = $('#newsletter-email').val();
+
+                if (email === '') {
+                    $('#emailErr').text('Email không được để trống');
+                }
+
+                $.ajax({
+                    method: 'POST',
+                    url: "{{ route('register-newsletter') }}",
+                    data: {
+                        email: email,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            Toast.fire({
+                                icon: 'success',
+                                title: data.message
+                            })
+                            $('#newsletter-email').val('');
+                            $('#emailErr').text('');
+                        } else if (data.status === 'error') {
+                            Toast.fire({
+                                icon: 'error',
+                                title: data.message
+                            })
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Có lỗi xảy ra, vui lòng thử lại sau'
+                        })
+                    }
+                });
+            })
         })
     </script>
 

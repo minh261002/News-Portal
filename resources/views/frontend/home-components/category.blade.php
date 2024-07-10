@@ -586,7 +586,8 @@
                                 {{ _('Đăng ký nhận tin') }}
                             </h4>
                             <!-- Form Subscribe -->
-                            <div class="widget__form-subscribe bg__card-shadow">
+                            <form class="widget__form-subscribe bg__card-shadow" id="form-newsletter">
+                                @csrf
                                 <h6>
                                     {{ _('Nhận bản tin hàng ngày từ chúng tôi') }}
                                 </h6>
@@ -594,15 +595,17 @@
                                         {{ _('Vui lòng nhập email của bạn') }}
                                     </small></p>
                                 <div class="input-group ">
-                                    <input type="text" class="form-control"
-                                        placeholder="{{ _('Địa chỉ email') }}">
+                                    <input type="email" class="form-control"
+                                        placeholder="{{ _('Địa chỉ email') }}" name="email" id="newsletter-email">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">
+                                        <button class="btn btn-primary" type="submit">
                                             {{ _('Đăng ký') }}
                                         </button>
                                     </div>
+
+                                    <span class="text-danger" id="emailErr"></span>
                                 </div>
-                            </div>
+                            </form>
                         </aside>
                     </div>
                 </div>

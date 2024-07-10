@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\HomeSectionSettingController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SubscriberController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AdminAuthenticationController::class, 'login'])->name('login');
@@ -40,4 +41,7 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get('/ads', [AdsController::class, 'index'])->name('ads');
     Route::put('/ads/{id}', [AdsController::class, 'update'])->name('ads.update');
+
+    // Route::get('/subscribers', [SubscriberController::class, 'index'])->name('subscribers');
+    Route::resource('subscribers', SubscriberController::class)->only(['index', 'store', 'destroy']);
 });

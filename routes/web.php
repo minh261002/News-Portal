@@ -25,3 +25,4 @@ Route::post('comment', [HomeController::class, 'handleComment'])->name('comment'
 Route::post('getComment', [HomeController::class, 'getComments'])->name('getComments');
 Route::delete('comment/{id}', [HomeController::class, 'deleteComment'])->name('deleteComment');
 Route::get('/news', [HomeController::class, 'news'])->name('news');
+Route::post('/register-newsletter', [HomeController::class, 'registerNewsletter'])->name('register-newsletter');

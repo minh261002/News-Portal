@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\HomeSectionSetting;
 use App\Models\News;
+use App\Models\Subscriber;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -230,5 +231,22 @@ class HomeController extends Controller
                 'message' => 'Không thể xóa bình luận'
             ]);
         }
+    }
+
+    public function registerNewsletter(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|unique:subscribers,email',
+        ]);
+
+        $subscriber = new Subscriber();
+        $subscriber->email = $request->email;
+
+        $subscriber->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Đăng ký nhận bản tin thành công'
+        ]);
     }
 }
