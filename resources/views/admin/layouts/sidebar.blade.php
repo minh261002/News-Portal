@@ -57,13 +57,16 @@
             </li>
 
             <li class="dropdown
-                {{ setSidebarActive(['admin.role.*']) }}
-            ">
+                {{ setSidebarActive(['admin.role.*', 'admin.role_user.*']) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Truy Cập</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ setSidebarActive(['admin.role.*']) }}">
                         <a class="nav-link" href="{{ route('admin.role.index') }}">Phân Quyền</a>
+                    </li>
+
+                    <li class="{{ setSidebarActive(['admin.role_user.*']) }}">
+                        <a class="nav-link" href="{{ route('admin.role_user.index') }}">Uỷ Quyền</a>
                     </li>
                 </ul>
             </li>

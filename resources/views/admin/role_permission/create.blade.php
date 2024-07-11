@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Phân Quyền Người Dùng</h1>
+            <h1>Phân Quyền</h1>
         </div>
 
         <div class="section-body">

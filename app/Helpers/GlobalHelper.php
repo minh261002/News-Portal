@@ -1,5 +1,6 @@
 <?php
 use App\Models\Language;
+use App\Models\Setting;
 
 function formatTags(array $tags): string
 {
@@ -32,20 +33,28 @@ function truncate(string $text, int $limit = 100)
     return \Str::limit($text, $limit, '...');
 }
 
-function convertToKFormat(int $num){
-    if($num < 1000 ){
+function convertToKFormat(int $num)
+{
+    if ($num < 1000) {
         return $num;
-    }else if($num < 1000000){
-        return round($num/1000, 1) . 'K';
-    }else{
-        return round($num/1000000, 1) . 'M';
+    } else if ($num < 1000000) {
+        return round($num / 1000, 1) . 'K';
+    } else {
+        return round($num / 1000000, 1) . 'M';
     }
 }
 
-function setSidebarActive(array $routes){
-    foreach($routes as $route){
-        if(request()->routeIs($route)){
+function setSidebarActive(array $routes)
+{
+    foreach ($routes as $route) {
+        if (request()->routeIs($route)) {
             return 'active';
         }
     }
+}
+
+function getSetting($key)
+{
+    $data = Setting::where('key', $key)->first();
+    return $data->value;
 }
