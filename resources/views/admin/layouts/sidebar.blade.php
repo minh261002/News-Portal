@@ -56,6 +56,18 @@
                 </a>
             </li>
 
+            <li class="dropdown
+                {{ setSidebarActive(['admin.role.*']) }}
+            ">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                    <span>Truy Cập</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ setSidebarActive(['admin.role.*']) }}">
+                        <a class="nav-link" href="{{ route('admin.role.index') }}">Phân Quyền</a>
+                    </li>
+                </ul>
+            </li>
+
             <li
                 class="{{ setSidebarActive(['admin.languages.index', 'admin.languages.create', 'admin.languages.edit']) }}">
                 <a class="nav-link" href="{{ route('admin.languages.index') }}">

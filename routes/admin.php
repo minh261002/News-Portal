@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\HomeSectionSettingController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\RolePermissionController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SubscriberController;
 use Illuminate\Support\Facades\Route;
@@ -47,4 +48,10 @@ Route::middleware(['admin'])->group(function () {
     Route::put('/settings/general', [SettingController::class, 'updateGeneralSetting'])->name('general-setting.update');
     Route::put('/settings/seo', [SettingController::class, 'updateSeoSetting'])->name('seo-setting.update');
     Route::put('/settings/appearance', [SettingController::class, 'updateAppearanceSetting'])->name('appearance-setting.update');
+    Route::get('/role', [RolePermissionController::class, 'index'])->name('role.index');
+    Route::get('/role/create', [RolePermissionController::class, 'create'])->name('role.create');
+    Route::post('/role', [RolePermissionController::class, 'store'])->name('role.store');
+    Route::get('/role/{id}/edit', [RolePermissionController::class, 'edit'])->name('role.edit');
+    Route::put('/role/{id}', [RolePermissionController::class, 'update'])->name('role.update');
+    Route::delete('/role/{id}', [RolePermissionController::class, 'destroy'])->name('role.destroy');
 });
