@@ -19,10 +19,11 @@ class NewsController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware('permission:News Index,admin', only: ['index', 'toggleNewsStatus', 'newsCopy']),
+            new Middleware('permission:News Index,admin', only: ['index', 'newsCopy']),
             new Middleware('permission:News Create,admin', only: ['create', 'store']),
             new Middleware('permission:News Update,admin', only: ['edit', 'update']),
             new Middleware('permission:News Delete,admin', only: ['destroy']),
+            new Middleware('permission:News News All-Access,admin', only: ['toggleNewsStatus']),
         ];
     }
 
@@ -33,6 +34,12 @@ class NewsController extends Controller implements HasMiddleware
     {
         $languages = Language::where('status', 1)->get();
         return view('admin.news.index', compact('languages'));
+    }
+
+    public function pendingNews()
+    {
+        $languages = Language::where('status', 1)->get();
+        return view('admin.pending-news.index', compact('languages'));
     }
 
     /**
@@ -73,6 +80,13 @@ class NewsController extends Controller implements HasMiddleware
         $imagePath = $this->handleFileUpload($request, 'image');
 
         $news = new News();
+
+        if (canAccess(['News All-Access'])) {
+            if ($news->author_id !== auth()->guard('admin')->user()->id ) {
+                return abort(403, 'Unauthorized');
+            }
+        }
+
         $news->author_id = \Auth::guard('admin')->user()->id;
         $news->language = $request->language;
         $news->category_id = $request->category;
@@ -85,6 +99,7 @@ class NewsController extends Controller implements HasMiddleware
         $news->is_breaking_news = $request->is_breaking_news ? 1 : 0;
         $news->show_at_slider = $request->show_at_slider ? 1 : 0;
         $news->status = $request->status ? 1 : 0;
+        $news->is_approved = getRole() == 'Admin' || checkPermission('News All-Access') ? 1 : 0;
         $news->save();
 
         $tags = explode(',', $request->tags);
@@ -103,7 +118,11 @@ class NewsController extends Controller implements HasMiddleware
 
 
         toast('Thêm bài viết thành công', 'success');
-        return redirect()->route('admin.new.index');
+        if (getRole() == 'Admin' || checkPermission('News All-Access')) {
+            return redirect()->route('admin.new.index');
+        } else {
+            return redirect()->route('admin.news-pending');
+        }
     }
 
     /**

@@ -25,7 +25,8 @@
             @endif
 
             @if (canAccess(['News Index', 'News Create', 'News Update', 'News Delete']))
-                <li class="dropdown {{ setSidebarActive(['admin.new.index', 'admin.new.create', 'admin.new.edit']) }} ">
+                <li
+                    class="dropdown {{ setSidebarActive(['admin.new.index', 'admin.new.create', 'admin.new.edit', 'admin.news-pending']) }} ">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                             class="fas fa-columns"></i>
                         <span>Bài viết</span></a>
@@ -33,8 +34,8 @@
                         <li class="{{ setSidebarActive(['admin.new.index', 'admin.new.create', 'admin.new.edit']) }}">
                             <a class="nav-link" href="{{ route('admin.new.index') }}">Tất cả</a>
                         </li>
-                        <li class="{{ setSidebarActive(['admin.new.index']) }}">
-                            <a class="nav-link" href="{{ route('admin.new.index') }}">Chờ Duyệt</a>
+                        <li class="{{ setSidebarActive(['admin.news-pending']) }}">
+                            <a class="nav-link" href="{{ route('admin.news-pending') }}">Chờ Duyệt</a>
                     </ul>
                 </li>
             @endif

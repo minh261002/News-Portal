@@ -70,3 +70,13 @@ function canAccess(array $permissions)
         return false;
     }
 }
+
+function getRole(){
+    $role = auth()->guard('admin')->user()->getRoleNames();
+    return $role->first();
+}
+
+function checkPermission(string $permission)
+{
+    return auth()->guard('admin')->user()->hasPermissionTo($permission);
+}

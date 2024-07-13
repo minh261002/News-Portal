@@ -95,42 +95,43 @@
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <div class="control-label">Trạng Thái</div>
-                                <label class="custom-switch mt-2">
-                                    <input value="1" type="checkbox" name="status" class="custom-switch-input"
-                                        {{ $news->status === 1 ? 'checked' : '' }}>
-                                    <span class="custom-switch-indicator"></span>
-                                </label>
+                    @if (canAccess(['News Status', 'News All-Access']))
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="control-label">Trạng Thái</div>
+                                    <label class="custom-switch mt-2">
+                                        <input value="1" type="checkbox" name="status" class="custom-switch-input"
+                                            {{ $news->status === 1 ? 'checked' : '' }}>
+                                        <span class="custom-switch-indicator"></span>
+                                    </label>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <div class="control-label">Tin nóng</div>
-                                <label class="custom-switch mt-2">
-                                    <input value="1" type="checkbox" name="is_breaking_news"
-                                        class="custom-switch-input" {{ $news->is_breaking_news === 1 ? 'checked' : '' }}>
-                                    <span class="custom-switch-indicator"></span>
-                                </label>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="control-label">Tin nóng</div>
+                                    <label class="custom-switch mt-2">
+                                        <input value="1" type="checkbox" name="is_breaking_news"
+                                            class="custom-switch-input"
+                                            {{ $news->is_breaking_news === 1 ? 'checked' : '' }}>
+                                        <span class="custom-switch-indicator"></span>
+                                    </label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <div class="control-label">Hiển thị slider</div>
-                                <label class="custom-switch mt-2">
-                                    <input value="1" type="checkbox" name="show_at_slider" class="custom-switch-input"
-                                        {{ $news->show_at_slider === 1 ? 'checked' : '' }}>
-                                    <span class="custom-switch-indicator"></span>
-                                </label>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="control-label">Hiển thị slider</div>
+                                    <label class="custom-switch mt-2">
+                                        <input value="1" type="checkbox" name="show_at_slider"
+                                            class="custom-switch-input" {{ $news->show_at_slider === 1 ? 'checked' : '' }}>
+                                        <span class="custom-switch-indicator"></span>
+                                    </label>
+                                </div>
                             </div>
+
                         </div>
-
-                    </div>
-
+                    @endif
                     <button type="submit" class="btn btn-primary">Lưu Thay Đổi</button>
                     <a href="{{ route('admin.new.index') }}" class="btn btn-danger">Quay Lại</a>
                 </form>

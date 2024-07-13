@@ -38,6 +38,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('fetch-news-category', [NewsController::class, 'fetchNewsCategory'])->name('fetch-news-category');
     Route::get('/news/toggle-status', [NewsController::class, 'toggleNewsStatus'])->name('toggle-news-status');
     Route::get('/news-copy/{id}', [NewsController::class, 'newsCopy'])->name('news-copy');
+    Route::get('/news-pending', [NewsController::class, 'pendingNews'])->name('news-pending');
 
     Route::get('/home-section-setting', [HomeSectionSettingController::class, 'index'])->name('home-section-setting');
     Route::put('/home-section-setting', [HomeSectionSettingController::class, 'update'])->name('home-section-setting.update');

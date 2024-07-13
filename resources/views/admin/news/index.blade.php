@@ -29,9 +29,20 @@
                     <div class="tab-content tab-bordered" id="myTab3Content">
                         @foreach ($languages as $language)
                             @php
-                                $news = \App\Models\News::where('language', $language->lang)
-                                    ->orderByDesc('id')
-                                    ->get();
+                                if (canAccess(['News All-Access'])) {
+                                    $news = \App\Models\News::with('category')
+                                        ->where('language', $language->lang)
+                                        ->where('is_approved', 1)
+                                        ->orderByDesc('id')
+                                        ->get();
+                                } else {
+                                    $news = \App\Models\News::with('category')
+                                        ->where('language', $language->lang)
+                                        ->where('is_approved', 1)
+                                        ->where('author_id', auth()->guard('admin')->user()->id)
+                                        ->orderByDesc('id')
+                                        ->get();
+                                }
                             @endphp
                             <div class="tab-pane fade show {{ $loop->index === 0 ? 'active' : '' }}"
                                 id="home-{{ $language->lang }}" role="tabpanel" aria-labelledby="home-tab2">
@@ -46,9 +57,11 @@
                                                     <th>Ảnh</th>
                                                     <th>Tiêu Đề</th>
                                                     <th>Danh Mục</th>
-                                                    <th>Trạng Thái</th>
-                                                    <th>Tin Hot</th>
-                                                    <th>Slider</th>
+                                                    @if (canAccess(['News Status', 'News All-Access']))
+                                                        <th>Trạng Thái</th>
+                                                        <th>Tin Hot</th>
+                                                        <th>Slider</th>
+                                                    @endif
                                                     <th>Thao Tác</th>
                                                 </tr>
                                             </thead>
@@ -64,35 +77,41 @@
                                                         </td>
                                                         <td>{{ $new->title }}</td>
                                                         <td>{{ $new->category->name }}</td>
-                                                        <td>
-                                                            <label class="custom-switch mt-2">
-                                                                <input {{ $new->status === 1 ? 'checked' : '' }}
-                                                                    data-id="{{ $new->id }}" data-name="status"
-                                                                    value="1" type="checkbox"
-                                                                    class="custom-switch-input toggle-status">
-                                                                <span class="custom-switch-indicator"></span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-switch mt-2">
-                                                                <input {{ $new->is_breaking_news === 1 ? 'checked' : '' }}
-                                                                    data-id="{{ $new->id }}"
-                                                                    data-name="is_breaking_news" value="1"
-                                                                    type="checkbox"
-                                                                    class="custom-switch-input toggle-status">
-                                                                <span class="custom-switch-indicator"></span>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="custom-switch mt-2">
-                                                                <input {{ $new->show_at_slider === 1 ? 'checked' : '' }}
-                                                                    data-id="{{ $new->id }}"
-                                                                    data-name="show_at_slider" value="1"
-                                                                    type="checkbox"
-                                                                    class="custom-switch-input toggle-status">
-                                                                <span class="custom-switch-indicator"></span>
-                                                            </label>
-                                                        </td>
+
+                                                        @if (canAccess(['News Status', 'News All-Access']))
+                                                            <td>
+                                                                <label class="custom-switch mt-2">
+                                                                    <input {{ $new->status === 1 ? 'checked' : '' }}
+                                                                        data-id="{{ $new->id }}" data-name="status"
+                                                                        value="1" type="checkbox"
+                                                                        class="custom-switch-input toggle-status">
+                                                                    <span class="custom-switch-indicator"></span>
+                                                                </label>
+                                                            </td>
+                                                            <td>
+                                                                <label class="custom-switch mt-2">
+                                                                    <input
+                                                                        {{ $new->is_breaking_news === 1 ? 'checked' : '' }}
+                                                                        data-id="{{ $new->id }}"
+                                                                        data-name="is_breaking_news" value="1"
+                                                                        type="checkbox"
+                                                                        class="custom-switch-input toggle-status">
+                                                                    <span class="custom-switch-indicator"></span>
+                                                                </label>
+                                                            </td>
+                                                            <td>
+                                                                <label class="custom-switch mt-2">
+                                                                    <input
+                                                                        {{ $new->show_at_slider === 1 ? 'checked' : '' }}
+                                                                        data-id="{{ $new->id }}"
+                                                                        data-name="show_at_slider" value="1"
+                                                                        type="checkbox"
+                                                                        class="custom-switch-input toggle-status">
+                                                                    <span class="custom-switch-indicator"></span>
+                                                                </label>
+                                                            </td>
+                                                        @endif
+
                                                         <td>
                                                             <a href="{{ route('admin.new.edit', $new->id) }}"
                                                                 class="btn btn-primary">
