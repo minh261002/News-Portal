@@ -7,9 +7,22 @@ use App\Http\Requests\CreateCategoryRequest;
 use App\Models\Category;
 use App\Models\Language;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class CategoryController extends Controller
+
+class CategoryController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:Category Index,admin', only: ['index']),
+            new Middleware('permission:Category Create,admin', only: ['create', 'store']),
+            new Middleware('permission:Category Update,admin', only: ['edit', 'update']),
+            new Middleware('permission:Category Delete,admin', only: ['destroy']),
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */

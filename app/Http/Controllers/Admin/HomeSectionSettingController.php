@@ -7,9 +7,20 @@ use App\Http\Requests\Admin\HomeSectionSettingRequest;
 use App\Models\HomeSectionSetting;
 use App\Models\Language;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class HomeSectionSettingController extends Controller
+class HomeSectionSettingController extends Controller implements HasMiddleware
 {
+
+    public static function middleware()
+    {
+        return [
+            new Middleware('permission:Home Section Index,admin', only: ['index']),
+            new Middleware('permission:Home Section Update,admin', only: ['update', 'store']),
+        ];
+    }
+
     public function index()
     {
         $languages = Language::all();

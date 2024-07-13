@@ -9,10 +9,23 @@ use App\Models\News;
 use App\Models\Tag;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class NewsController extends Controller
+class NewsController extends Controller implements HasMiddleware
 {
     use FileUploadTrait;
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:News Index,admin', only: ['index', 'toggleNewsStatus', 'newsCopy']),
+            new Middleware('permission:News Create,admin', only: ['create', 'store']),
+            new Middleware('permission:News Update,admin', only: ['edit', 'update']),
+            new Middleware('permission:News Delete,admin', only: ['destroy']),
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */

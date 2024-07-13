@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\View;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,10 +28,14 @@ class AppServiceProvider extends ServiceProvider
 
         $setting = Setting::pluck('value', 'key')->toArray();
 
-        View::composer('*', function($view) use ($setting){
+        View::composer('*', function ($view) use ($setting) {
             $view->with('setting', $setting);
         });
 
         Carbon::setLocale('vi');
+
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('Admin') ? true : null;
+        });
     }
 }

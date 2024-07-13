@@ -6,9 +6,20 @@ use App\Http\Controllers\Controller;
 use App\Models\Ads;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class AdsController extends Controller
+class AdsController extends Controller implements HasMiddleware
 {
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:Ads Index,admin', only: ['index']),
+            new Middleware('permission:Ads Update,admin', only: ['update']),
+        ];
+    }
+
     use FileUploadTrait;
     /**
      * Display a listing of the resource.

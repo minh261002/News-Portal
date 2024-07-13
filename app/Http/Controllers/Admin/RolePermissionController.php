@@ -6,9 +6,22 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class RolePermissionController extends Controller
+class RolePermissionController extends Controller implements HasMiddleware
 {
+
+    public static function middleware()
+    {
+        return [
+            new Middleware('permission:Access Management Index,admin', only: ['index']),
+            new Middleware('permission:Access Management Create,admin', only: ['create', 'store']),
+            new Middleware('permission:Access Management Update,admin', only: ['edit', 'update']),
+            new Middleware('permission:Access Management Delete,admin', only: ['destroy']),
+        ];
+    }
+
     public function index()
     {
         $roles = Role::all();

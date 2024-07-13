@@ -6,9 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CreateLanguageRequest;
 use App\Models\Language;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class LanguageController extends Controller
+class LanguageController extends Controller implements HasMiddleware
 {
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:Language Index,admin', only: ['index']),
+            new Middleware('permission:Language Create,admin', only: ['create', 'store']),
+            new Middleware('permission:Language Update,admin', only: ['edit', 'update']),
+            new Middleware('permission:Language Delete,admin', only: ['destroy']),
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */

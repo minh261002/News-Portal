@@ -58,3 +58,15 @@ function getSetting($key)
     $data = Setting::where('key', $key)->first();
     return $data->value;
 }
+
+function canAccess(array $permissions)
+{
+    $permission = auth()->guard('admin')->user()->hasAnyPermission([$permissions]);
+    $isAdmin = auth()->guard('admin')->user()->hasRole('Admin');
+
+    if ($permission || $isAdmin) {
+        return true;
+    } else {
+        return false;
+    }
+}

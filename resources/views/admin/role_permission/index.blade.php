@@ -33,19 +33,25 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $role->name }}</td>
                                     <td>
-                                        @foreach ($role->permissions as $permission)
-                                            <span class="badge badge-primary">{{ $permission->name }}</span>
-                                        @endforeach
+                                        @if ($role->name === 'Admin')
+                                            <span class="badge badge-success">Tất cả quyền*</span>
+                                        @else
+                                            @foreach ($role->permissions as $permission)
+                                                <span class="badge badge-primary">{{ $permission->name }}</span>
+                                            @endforeach
+                                        @endif
                                     </td>
-                                    <td>
-                                        <a href="{{ route('admin.role.edit', $role->id) }}" class="btn btn-primary">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="{{ route('admin.role.destroy', $role->id) }}"
-                                            class="btn btn-danger delete-item">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </td>
+                                    @if ($role->name !== 'Admin')
+                                        <td>
+                                            <a href="{{ route('admin.role.edit', $role->id) }}" class="btn btn-primary">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="{{ route('admin.role.destroy', $role->id) }}"
+                                                class="btn btn-danger delete-item">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>
