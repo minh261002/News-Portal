@@ -42,9 +42,9 @@
                     <div class="form-group">
                         <label for="">Tuỳ chọn hiển thị </label>
                         <select name="show_at_nav" id="" class="form-control">
-                            <option {{ $category->show_at_nav === 0 ? 'selected' : '' }} value="0">
+                            <option {{ $category->show_at_nav === 1 ? 'selected' : '' }} value="0">
                                 Hiển thị</option>
-                            <option {{ $category->show_at_nav === 1 ? 'selected' : '' }} value="1">
+                            <option {{ $category->show_at_nav === 0 ? 'selected' : '' }} value="1">
                                 Không hiển thị</option>
                         </select>
                         @error('defalut')

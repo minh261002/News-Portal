@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HomeSectionSettingController;
 use App\Http\Controllers\Admin\LanguageController;
+use App\Http\Controllers\Admin\LocalizationController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RolePermissionController;
@@ -57,4 +58,5 @@ Route::middleware(['admin'])->group(function () {
     Route::put('/role/{id}', [RolePermissionController::class, 'update'])->name('role.update');
     Route::delete('/role/{id}', [RolePermissionController::class, 'destroy'])->name('role.destroy');
     Route::resource('role_user', RoleUserController::class);
+    Route::get('/localization/admin', [LocalizationController::class, 'index'])->name('localization');
 });

@@ -6,7 +6,7 @@
                             <div class="col-md-4">
                                 <div class="widget__footer">
                                     <figure class="image-logo">
-                                        <img src="{{ asset($setting['site_logo']) }}" alt="" class="logo-footer">
+                                        <img src="{{ asset('uploads/logo_f.svg') }}" alt="" class="logo-footer">
                                     </figure>
 
                                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius magnam harum iure
