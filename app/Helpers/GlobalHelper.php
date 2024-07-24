@@ -71,7 +71,8 @@ function canAccess(array $permissions)
     }
 }
 
-function getRole(){
+function getRole()
+{
     $role = auth()->guard('admin')->user()->getRoleNames();
     return $role->first();
 }

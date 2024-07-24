@@ -89,3 +89,34 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $('.toggle-status').on('click', function() {
+            let id = $(this).data('id');
+            let name = $(this).data('name');
+            let status = $(this).prop('checked') ? 1 : 0;
+
+            $.ajax({
+                method: 'GET',
+                url: "{{ route('admin.toggle-news-status') }}",
+                data: {
+                    id: id,
+                    name: name,
+                    status: status
+                },
+                success: function(data) {
+                    if (data.status === 'success') {
+                        Toast.fire({
+                            icon: 'success',
+                            title: data.message
+                        })
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            })
+        })
+    </script>
+@endpush

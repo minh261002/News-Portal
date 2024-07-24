@@ -124,7 +124,7 @@ class HomeController extends Controller
             });
         });
 
-        $news = $news->activeEntries()->withLocalize()->paginate(20);
+        $news = $news->activeEntries()->withLocalize()->paginate(6);
 
 
         $recentNews = News::with(['category', 'author'])

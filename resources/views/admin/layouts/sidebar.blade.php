@@ -18,7 +18,7 @@
                 <li
                     class=" {{ setSidebarActive(['admin.categories.index', 'admin.categories.create', 'admin.categories.edit']) }}">
                     <a class="nav-link" href="{{ route('admin.categories.index') }}">
-                        <i class="far fa-square"></i>
+                        <i class="fas fa-th-large"></i>
                         <span>Danh mục</span>
                     </a>
                 </li>
@@ -43,7 +43,7 @@
             @if (canAccess(['Home Section Index', 'Home Section Update']))
                 <li class="{{ setSidebarActive(['admin.home-section-setting']) }}">
                     <a class="nav-link" href="{{ route('admin.home-section-setting') }}">
-                        <i class="far fa-square"></i>
+                        <i class="fas fa-home"></i>
                         <span>Trang Chủ</span>
                     </a>
                 </li>
@@ -52,7 +52,7 @@
             @if (canAccess(['Language Index', 'Language Create', 'Language Update', 'Language Delete']))
                 <li class="{{ setSidebarActive(['admin.subscribers.index']) }}">
                     <a class="nav-link" href="{{ route('admin.subscribers.index') }}">
-                        <i class="far fa-square"></i>
+                        <i class="far fa-bell"></i>
                         <span>Đăng Ký</span>
                     </a>
                 </li>
@@ -61,7 +61,7 @@
             @if (canAccess(['Ads Index', 'Ads Update']))
                 <li class="{{ setSidebarActive(['admin.ads']) }}">
                     <a class="nav-link" href="{{ route('admin.ads') }}">
-                        <i class="far fa-square"></i>
+                        <i class="fas fa-ad"></i>
                         <span>Quảng Cáo</span>
                     </a>
                 </li>
@@ -75,8 +75,8 @@
                 ]))
                 <li class="dropdown
                 {{ setSidebarActive(['admin.role.*', 'admin.role_user.*']) }}">
-                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
-                            class="fas fa-columns"></i>
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+                        <i class="fas fa-users"></i>
                         <span>Truy Cập</span></a>
                     <ul class="dropdown-menu">
                         <li class="{{ setSidebarActive(['admin.role.*']) }}">
@@ -94,7 +94,7 @@
                 <li
                     class="{{ setSidebarActive(['admin.languages.index', 'admin.languages.create', 'admin.languages.edit']) }}">
                     <a class="nav-link" href="{{ route('admin.languages.index') }}">
-                        <i class="far fa-square"></i>
+                        <i class="fas fa-language"></i>
                         <span>Ngôn ngữ</span>
                     </a>
                 </li>

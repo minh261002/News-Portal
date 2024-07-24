@@ -82,7 +82,7 @@ class NewsController extends Controller implements HasMiddleware
         $news = new News();
 
         if (canAccess(['News All-Access'])) {
-            if ($news->author_id !== auth()->guard('admin')->user()->id ) {
+            if ($news->author_id !== auth()->guard('admin')->user()->id) {
                 return abort(403, 'Unauthorized');
             }
         }

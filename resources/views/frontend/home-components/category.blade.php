@@ -25,7 +25,7 @@
                                                 <div class="card__post__title">
                                                     <h5>
                                                         <a href="{{ route('news.detail', $news->slug) }}">
-                                                            {{ $news->title }}
+                                                            {{ truncate($news->title, 45) }}
                                                         </a>
                                                     </h5>
                                                 </div>
@@ -89,7 +89,7 @@
                                                         <div class="card__post__title">
                                                             <h6>
                                                                 <a href="{{ route('news.detail', $news->slug) }}">
-                                                                    {{ $news->title }}
+                                                                    {{ truncate($news->title, 45) }}
                                                                 </a>
                                                             </h6>
                                                         </div>
@@ -137,7 +137,7 @@
                                                         <div class="card__post__title">
                                                             <h6>
                                                                 <a href="{{ route('news.detail', $news->slug) }}">
-                                                                    {{ $news->title }}
+                                                                    {{ truncate($news->title, 45) }}
                                                                 </a>
                                                             </h6>
                                                         </div>
@@ -197,8 +197,8 @@
                     </h4>
                 </aside>
             </div>
-            <div class="col-md-12">
 
+            <div class="col-md-12">
                 <div class="article__entry-carousel">
                     @forelse($homeSection1 as $news)
                         <div class="item">
@@ -249,8 +249,8 @@
                     </h4>
                 </aside>
             </div>
-            <div class="col-md-12">
 
+            <div class="col-md-12">
                 <div class="article__entry-carousel">
                     @forelse($homeSection2 as $news)
                         <div class="item">
@@ -299,7 +299,7 @@
     <!-- Popular news category -->
     <div class="mt-4">
         <div class="container">
-            <div class="row mt-5">
+            <div class="row">
                 <div class="col-md-8">
                     <aside class="wrapper__list__article mb-0">
                         <h4 class="border_section">
@@ -364,13 +364,14 @@
                         </h4>
 
                         <div class="wrapp__list__article-responsive">
-                            @forelse($homeSection4 as $news)
+                            <!-- Post Article List -->
+                            @forelse($homeSection4 as $new)
                                 <div class="card__post card__post-list card__post__transition mt-30">
                                     <div class="row ">
                                         <div class="col-md-5">
                                             <div class="card__post__transition">
-                                                <a href="{{ route('news.detail', $news->slug) }}">
-                                                    <img src="{{ asset($news->image) }}" class="img-fluid w-100"
+                                                <a href="{{ route('news.detail', $new->slug) }}">
+                                                    <img src="{{ asset($new->image) }}" class="img-fluid w-100"
                                                         alt="">
                                                 </a>
                                             </div>
@@ -379,30 +380,30 @@
                                             <div class="card__post__body ">
                                                 <div class="card__post__content  ">
                                                     <div class="card__post__category ">
-                                                        {{ $news->category->name }}
+                                                        {{ $new->category->name }}
                                                     </div>
                                                     <div class="card__post__author-info mb-2">
                                                         <ul class="list-inline">
                                                             <li class="list-inline-item">
                                                                 <span class="text-primary">
-                                                                    {{ $news->author->name }}
+                                                                    {{ $new->author->name }}
                                                                 </span>
                                                             </li>
                                                             <li class="list-inline-item">
                                                                 <span class="text-dark text-capitalize">
-                                                                    {{ $news->created_at->format('d M, Y') }}
+                                                                    {{ $new->created_at->format('d M, Y') }}
                                                                 </span>
                                                             </li>
                                                         </ul>
                                                     </div>
                                                     <div class="card__post__title">
                                                         <h5>
-                                                            <a href="{{ route('news.detail', $news->slug) }}">
-                                                                {{ truncate($news->title, 50) }}
+                                                            <a href="{{ route('news.detail', $new->slug) }}">
+                                                                {{ truncate($new->title, 50) }}
                                                             </a>
                                                         </h5>
                                                         <p class="d-none d-lg-block d-xl-block mb-0">
-                                                            {!! truncate($news->content, 100) !!}
+                                                            {{ truncate($new->meta_description, 150) }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -455,14 +456,14 @@
 
                                                 </ul>
                                                 <h5>
-                                                    <a href="#">
+                                                    <a href="{{ route('news.detail', $new->slug) }}">
                                                         {{ truncate($news->title, 50) }}
                                                     </a>
                                                 </h5>
                                                 <p>
                                                     {!! truncate($news->content, 100) !!}
                                                 </p>
-                                                <a href="#"
+                                                <a href="{{ route('news.detail', $new->slug) }}"
                                                     class="btn btn-outline-primary mb-4 text-capitalize">
                                                     {{ _('Xem chi tiết') }}
                                                 </a>

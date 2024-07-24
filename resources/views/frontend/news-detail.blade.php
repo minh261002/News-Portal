@@ -413,7 +413,7 @@
                                             </ul>
                                             <h5>
                                                 <a href="#">
-                                                    {{ $news->title }}
+                                                    {{ truncate($news->title) }}
                                                 </a>
                                             </h5>
 
@@ -520,7 +520,7 @@
                                             </ul>
                                             <h5>
                                                 <a href="{{ route('news.detail', $item->slug) }}">
-                                                    {{ $item->title }}
+                                                    {{ truncate($item->title) }}
                                                 </a>
                                             </h5>
                                             <p>

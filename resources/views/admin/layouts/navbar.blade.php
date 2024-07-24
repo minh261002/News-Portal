@@ -26,7 +26,7 @@
                 <a href="{{ route('admin.profile') }}" class="dropdown-item has-icon">
                     <i class="far fa-user"></i> Thông Tin Cá Nhân
                 </a>
-                <a href="features-settings.html" class="dropdown-item has-icon">
+                <a href="{{ route('admin.settings') }}" class="dropdown-item has-icon">
                     <i class="fas fa-cog"></i> Settings
                 </a>
                 <div class="dropdown-divider"></div>

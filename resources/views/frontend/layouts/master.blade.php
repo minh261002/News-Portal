@@ -40,7 +40,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="{{ asset('frontend/css/styles.css') }}" rel="stylesheet" />
-
+    <link rel="shortcut icon" href="{{ $setting['site_favicon'] }}" type="image/x-icon">
     <style>
         :root {
             --colorPrimary: {{ $setting['site_color'] }};

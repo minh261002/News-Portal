@@ -1,5 +1,6 @@
 @php
     $languages = \App\Models\Language::where('status', 1)->get();
+    $categories = \App\Models\Category::where('status', 1)->where('show_at_nav', 1)->get();
 @endphp
 
 <!-- Header news -->
@@ -25,7 +26,7 @@
 
                         <div class="topbar-text d-flex align-items-center justify-center gap-3">
                             <i class="fa fa-calendar"></i>
-                            <p class="ml-3 mb-0">
+                            <p class="ml-3 mb-0" style="text-transform: uppercase;">
                                 {{ \Carbon\Carbon::now()->translatedFormat('l, d-m-Y') }}</p>
                         </div>
                     </div>
@@ -65,7 +66,7 @@
 
     <!-- Navbar  -->
     <!-- Navbar menu  -->
-    <div class="navigation-wrap navigation-shadow bg-white">
+    <div class="navigation-wraper navigation-shadow bg-white">
         <nav class="navbar navbar-hover navbar-expand-lg navbar-soft">
             <div class="container">
                 <div class="offcanvas-header">
@@ -80,27 +81,15 @@
                 </figure>
 
                 <div class="collapse navbar-collapse justify-content-between" id="main_nav99">
-                    <ul class="navbar-nav ml-auto ">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="index.html">home</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" href="about-us.html"> about </a>
-                        </li>
-                        <li class="nav-item dropdown has-megamenu">
-                            <a class="nav-link" href="blog.html">blog </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Pages </a>
-                            <ul class="dropdown-menu animate fade-up">
-                                <li><a class="dropdown-item icon-arrow" href="blog_details.html"> Blog single detail
-                                    </a></li>
-                                <li><a class="dropdown-item" href="404.html"> 404 Error </a>
-                            </ul>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="contact.html"> contact </a></li>
+                    <ul class="navbar-nav ml-auto">
+                        @foreach ($categories as $cat)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('news', ['category' => $cat->slug]) }}">
+                                    {{ $cat->name }}
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
-
 
                     <!-- Search bar.// -->
                     <ul class="navbar-nav ">
@@ -166,35 +155,23 @@
                 <div class="modal-body">
                     <nav class="list-group list-group-flush">
                         <ul class="navbar-nav ">
-                            <li class="nav-item">
-                                <a class="nav-link active text-dark" href="index.html"> Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" href="about-us.html"> About </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" href="blog.html">Blog </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active dropdown-toggle  text-dark" href="#"
-                                    data-toggle="dropdown">Pages </a>
-                                <ul class="dropdown-menu dropdown-menu-left">
-                                    <li><a class="dropdown-item" href="blog_details.html">Blog details</a></li>
-                                    <li><a class="dropdown-item" href="404.html"> 404 Error</a></li>
-
-                                </ul>
-                            </li>
-                            <li class="nav-item"><a class="nav-link  text-dark" href="contact.html"> Contact </a>
-                            </li>
+                            @foreach ($categories as $cat)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('news', ['category' => $cat->slug]) }}">
+                                        {{ $cat->name }}
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
 
                     </nav>
                 </div>
                 <div class="modal-footer">
-                    <p>© 2020 <a href="https://websolutionus.com/.com">WebSolutionUS</a>
+                    <p>© 2024 OwenBookStore
                         -
-                        Premium template news, blog & magazine &amp;
-                        magazine theme by <a href="https://websolutionus.com/.com">websolutionus.com</a></p>
+                        <a href="#">Privacy</a>
+                        -
+                        <a href="#">Terms</a>
                 </div>
             </div>
         </div>
