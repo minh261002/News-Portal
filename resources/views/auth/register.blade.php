@@ -69,7 +69,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <a href="#" class="float-right">Quên mật khẩu ?</a>
+                                    <a href="{{ route('password.request') }}" class="float-right">Quên mật khẩu ?</a>
                                     <label class="float-left custom-control custom-checkbox"> <input type="checkbox"
                                             class="custom-control-input" checked="" name="remember">
                                         <span class="custom-control-label"> Lưu thông tin </span>
