@@ -28,7 +28,7 @@
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-
+                    <input type="hidden" name="author_id" value="{{$news->author_id }}" />
                     <div class="form-group">
                         <label for="">Danh mục</label>
                         <select name="category" id="category" class="form-control select2">

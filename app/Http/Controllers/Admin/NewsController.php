@@ -11,6 +11,7 @@ use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Auth;
 
 class NewsController extends Controller implements HasMiddleware
 {
@@ -87,7 +88,7 @@ class NewsController extends Controller implements HasMiddleware
             }
         }
 
-        $news->author_id = \Auth::guard('admin')->user()->id;
+        $news->author_id = Auth::guard('admin')->user()->id;
         $news->language = $request->language;
         $news->category_id = $request->category;
         $news->title = $request->title;
@@ -173,7 +174,7 @@ class NewsController extends Controller implements HasMiddleware
 
         $imgePath = $this->handleFileUpload($request, 'image', $news->image);
 
-        $news->author_id = \Auth::guard('admin')->user()->id;
+        $news->author_id = $request->author_id;
         $news->language = $request->language;
         $news->category_id = $request->category;
         $news->title = $request->title;
@@ -182,10 +183,11 @@ class NewsController extends Controller implements HasMiddleware
 
         $news->meta_title = $request->meta_title;
         $news->meta_description = $request->meta_description;
-        $news->is_breaking_news = $request->is_breaking_news ? 1 : 0;
-        $news->show_at_slider = $request->show_at_slider ? 1 : 0;
-        $news->status = $request->status ? 1 : 0;
 
+        //giữ nguyên giá trị cũ nếu không có giá trị mới
+        $news->is_breaking_news = $request->is_breaking_news ?? $news->is_breaking_news;
+        $news->show_at_slider = $request->show_at_slider ?? $news->show_at_slider;
+        $news->status = $request->status ?? $news->status;
         $news->save();
 
         $tags = explode(',', $request->tags);
