@@ -1,52 +1,91 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+@extends('frontend.layouts.master')
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+
+@section('title', 'Đăng Ký')
+@section('content')
+    <section class="wrap__section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mx-auto" style="max-width: 400px;">
+                        <div class="card-body">
+                            <h4 class="card-title mb-4">Đăng Ký</h4>
+                            <form action="{{ route('register') }}" style="display:flex; gap: 10px ;flex-direction:column"
+                                method="POST">
+                                @csrf
+                                <a href="#" class="btn btn-facebook btn-block mb-2 text-white"> <i
+                                        class="fa fa-facebook"></i> &nbsp;
+                                    Tiếp tục với Facebook
+                                </a>
+                                <a href="#" class="btn btn-block mb-4"
+                                    style="
+                                    background-color: white;
+                                    color: #ea4336;
+                                    border-color: #ea4336;
+                                    hover: white;
+                                    ">
+                                    <i class="fa fa-google"></i>
+                                    &nbsp;
+                                    Tiếp tục với Google
+                                </a>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Họ và tên" type="text" name="name"
+                                        value="{{ old('name') }}">
+                                    <span style="color: red; text-transform: capitalize;
+">
+                                        @error('name')
+                                            {{ $message }}
+                                        @enderror
+                                    </span>
+                                </div>
+
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Email" type="email" name="email"
+                                        value="{{ old('email') }}">
+                                    <span style="color: red; text-transform: capitalize;
+">
+                                        @error('email')
+                                            {{ $message }}
+                                        @enderror
+                                    </span>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Mật Khẩu" type="password" name="password">
+                                    <span style="color: red; text-transform: capitalize">
+                                        @error('password')
+                                            {{ $message }}
+                                        @enderror
+                                    </span>
+                                </div>
+
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Nhập lại mật khẩu" type="password"
+                                        name="password_confirmation">
+                                    <span style="color: red; text-transform: capitalize">
+                                        @error('password_confirmation')
+                                            {{ $message }}
+                                        @enderror
+                                    </span>
+                                </div>
+
+                                <div class="form-group">
+                                    <a href="#" class="float-right">Quên mật khẩu ?</a>
+                                    <label class="float-left custom-control custom-checkbox"> <input type="checkbox"
+                                            class="custom-control-input" checked="" name="remember">
+                                        <span class="custom-control-label"> Lưu thông tin </span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block"> Đăng nhập </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <p class="text-center mt-4 mb-0">Bạn chưa có tài khoản ? <a href="{{ route('register') }}">Đăng Ký</a>
+                    </p>
+                </div>
+            </div>
         </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    </section>
+@endsection

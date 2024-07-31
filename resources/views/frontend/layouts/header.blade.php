@@ -48,14 +48,35 @@
                             </select>
                         </div>
 
-                        <ul class="topbar-link">
-                            <li><a href="{{ route('login') }}">
-                                    {{ _('Đăng Nhập') }}
-                                </a></li>
-                            <li><a href="{{ route('register') }}">
-                                    {{ _('Đăng Ký') }}
-                                </a></li>
-                        </ul>
+                        @guest
+                            <ul class="topbar-link">
+                                <li><a href="{{ route('login') }}">
+                                        {{ _('Đăng Nhập') }}
+                                    </a></li>
+                                <li><a href="{{ route('register') }}">
+                                        {{ _('Đăng Ký') }}
+                                    </a></li>
+                            </ul>
+                        @endguest
+
+                        @auth
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle text-white" type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ auth()->user()->name }}
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        {{ _('Đăng Xuất') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </div>
+                        @endauth
                     </div>
                 </div>
             </div>

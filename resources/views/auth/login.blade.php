@@ -17,7 +17,14 @@
                                         class="fa fa-facebook"></i> &nbsp;
                                     Tiếp tục với Facebook
                                 </a>
-                                <a href="#" class="btn btn-primary btn-block mb-4"> <i class="fa fa-google"></i>
+                                <a href="#" class="btn btn-block mb-4"
+                                    style="
+                                    background-color: white;
+                                    color: #ea4336;
+                                    border-color: #ea4336;
+                                    hover: white;
+                                    ">
+                                    <i class="fa fa-google"></i>
                                     &nbsp;
                                     Tiếp tục với Google
                                 </a>
